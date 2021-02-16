@@ -7,6 +7,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import '../App.css';
 import React from 'react';
 import myTheme from "./myTheme.js";
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,9 +31,9 @@ const NavBar = ({}) => {
               Melody Ruth
             </Typography>
             <div className={classes.navButtons}>
-            <Button color="inherit">Portfolio</Button>
-            <Button color="inherit">About</Button>
-            <Button color="inherit">Contact</Button>
+            <Button color="inherit"  component={Link} to={'/'}>Portfolio</Button>
+            <Button color="inherit"  component={Link} to={'/about'}>About</Button>
+            <Button color="inherit" component={Link} to={'/'}>Contact</Button>
             </div>
         </Toolbar>
       </AppBar>

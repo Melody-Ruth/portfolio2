@@ -5,16 +5,20 @@ import About from './components/About.js';
 import Projects from './components/projects.js';
 import Footer from './components/footer.js';
 import { makeStyles } from '@material-ui/core/styles';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
+    <Router>
+		<div className="App">
       <div className="mainContainer">
         <NavBar/>
-        <Projects/>
+        <Route path="/" exact component={Projects} />
+        <Route path="/about" exact component={About} />
         <Footer/>
-      </div>
-    </div>
+		</div>
+  </div>
+	</Router>
   );
 }
 
