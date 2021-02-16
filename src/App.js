@@ -14,8 +14,8 @@ function App() {
       <div className="mainContainer">
         <NavBar/>
         <div className="content">
-          <Route path="/" exact component={Projects} />
-          <Route path="/about" exact component={About} />
+          <Route path="/portfolio2/" exact component={Projects} />
+          <Route path="/portfolio2/about" exact component={About} />
         </div>
         <Footer/>
 		  </div>
