@@ -11,14 +11,7 @@ import starToursThumbnail from '../images/thumbnails/star_tours_thumbnail.png';
 import stippleThumbnail from '../images/thumbnails/stipple_thumbnail.jpg';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import Paper from '@material-ui/core/Paper';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import Thumbnail from './Thumbnail.js';
 
 const useStyles = makeStyles({
     bigContainer: {
@@ -32,116 +25,16 @@ const Projects = ({}) => {
   return (
     <div className={classes.bigContainer}>
         <div className="thumbnailContainer">
-            <Card className="thumbnails" >
-                <img 
-                    className="thumbImgs"
-                    src={archeryThumbnail} 
-                    height="100%"
-                    alt="archery game" 
-                />
-                <div className="textBox">
-                    <Typography variant="h5" className="thumbText2">Archery Game</Typography>
-                </div>
-            </Card>
-            <Card className="thumbnails" >
-                <img 
-                    className="thumbImgs"
-                    src={artStudioThumbnail} 
-                    height="100%"
-                    alt="Art Studio" 
-                />
-                <div className="textBox">
-                    <Typography variant="h5" className="thumbText2">Art Studio</Typography>
-                </div>
-            </Card>
-            <Card className="thumbnails" >
-                <img 
-                    className="thumbImgs"
-                    src={beanstalkThumbnail} 
-                    height="100%"
-                    alt="archery game" 
-                />
-                <div className="textBox">
-                    <Typography variant="h5" className="thumbText2">Beanstalk Game</Typography>
-                </div>
-            </Card>
-            <Card className="thumbnails" >
-                <img 
-                    className="thumbImgs"
-                    src={caveFloodThumbnail} 
-                    height="100%"
-                    alt="archery game" 
-                />
-                <div className="textBox">
-                    <Typography variant="h5" className="thumbText2">Cave Flood Game</Typography>
-                </div>
-            </Card>
-            <Card className="thumbnails" >
-                <img 
-                    className="thumbImgs"
-                    src={EoMThumbnail} 
-                    height="100%"
-                    alt="archery game" 
-                />
-                <div className="textBox">
-                    <Typography variant="h5" className="thumbText2">Elements of Magic Game</Typography>
-                </div>
-            </Card>
-            <Card className="thumbnails" >
-                <img 
-                    className="thumbImgs"
-                    src={fishThumbnail} 
-                    height="100%"
-                    alt="archery game" 
-                />
-                <div className="textBox">
-                    <Typography variant="h5" className="thumbText2">Fish Collector Game</Typography>
-                </div>
-            </Card>
-            <Card className="thumbnails" >
-                <img 
-                    className="thumbImgs"
-                    src={gingerbreadThumbnail} 
-                    height="100%"
-                    alt="archery game" 
-                />
-                <div className="textBox">
-                    <Typography variant="h5" className="thumbText2">Gingerbread Maker</Typography>
-                </div>
-            </Card>
-            <Card className="thumbnails" >
-                <img 
-                    className="thumbImgs"
-                    src={stippleThumbnail} 
-                    height="100%"
-                    alt="archery game" 
-                />
-                <div className="textBox">
-                    <Typography variant="h5" className="thumbText2">Stipple Image Transformation Tool</Typography>
-                </div>
-            </Card>
-            <Card className="thumbnails" >
-                <img 
-                    className="thumbImgs"
-                    src={puzzleThumbnail} 
-                    height="100%"
-                    alt="archery game" 
-                />
-                <div className="textBox">
-                    <Typography variant="h5" className="thumbText2">Jigsaw Puzzle Game</Typography>
-                </div>
-            </Card>
-            <Paper className="thumbnails" >
-                <img 
-                    className="thumbImgs"
-                    src={starToursThumbnail} 
-                    height="100%"
-                    alt="archery game" 
-                />
-                <div className="textBox">
-                    <Typography variant="h5" className="thumbText2">Star Tours Simulation</Typography>
-                </div>
-            </Paper>
+            <Thumbnail title="Archery Game" imgSrc={archeryThumbnail}/>
+            <Thumbnail title="Art Studio Painting Tool" imgSrc={artStudioThumbnail}/>
+            <Thumbnail title="Beanstalk Game" imgSrc={beanstalkThumbnail}/>
+            <Thumbnail title="Cave Flood Game" imgSrc={caveFloodThumbnail}/>
+            <Thumbnail title="Elements of Magic Game" imgSrc={EoMThumbnail}/>
+            <Thumbnail title="Fish Collector Game" imgSrc={fishThumbnail}/>
+            <Thumbnail title="Stipple Image Transformation Tool" imgSrc={stippleThumbnail}/>
+            <Thumbnail title="Star Tours Simulation" imgSrc={starToursThumbnail}/>
+            <Thumbnail title="Gingerbread House Maker" imgSrc={gingerbreadThumbnail}/>
+            <Thumbnail title="Jigsaw Puzzle Game" imgSrc={puzzleThumbnail}/>
         </div>
     </div>
   )
