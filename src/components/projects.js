@@ -12,6 +12,7 @@ import stippleThumbnail from '../images/thumbnails/stipple_thumbnail.jpg';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Thumbnail from './Thumbnail.js';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
     bigContainer: {
@@ -30,9 +31,9 @@ const Projects = ({}) => {
             <Thumbnail title="Stipple Image Transformation Tool" imgSrc={stippleThumbnail}/>
             <Thumbnail title="Star Tours Simulation" imgSrc={starToursThumbnail}/>
             <Thumbnail title="Archery Game" imgSrc={archeryThumbnail}/>
-            <Thumbnail title="Art Studio Painting Tool" imgSrc={artStudioThumbnail}/>
+            <Thumbnail title="Art Studio Painting Tool" imgSrc={artStudioThumbnail} link='/portfolio2/Art-Studio/'/>
             <Thumbnail title="Fish Collector Game" imgSrc={fishThumbnail}/>
-            <Thumbnail title="Gingerbread House Maker" imgSrc={gingerbreadThumbnail}/>
+            <Thumbnail title="Gingerbread House Maker" imgSrc={gingerbreadThumbnail} link='/portfolio2/Gingerbread/'/>
         </div>
   )
 }

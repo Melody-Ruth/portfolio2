@@ -127,3 +127,48 @@ body,
   text-align: center;
   color:rgb(0,0,0,0);
 }
+
+.leftCol {
+  display:flex;
+  flex-direction: column;
+  padding: 30px;
+  justify-content: space-around;
+  align-items: center;
+  width:400px;
+}
+
+.rightCol {
+  display:flex;
+  flex-direction: column;
+  padding: 30px;
+  text-align: center;
+  align-items: center;
+}
+
+.myContainer {
+  display:flex;
+}
+
+.myTextContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.myText {
+  margin: 10px;
+}
+
+.basicCanvas {
+  width: 400px;
+  height: 400px;
+}
+
+.dateLine {
+  display:flex;
+  width:100%;
+  justify-content: space-between;
+}
+
+.colItem {
+  margin-top:10px;
+}
