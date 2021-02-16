@@ -13,11 +13,13 @@ function App() {
 		<div className="App">
       <div className="mainContainer">
         <NavBar/>
-        <Route path="/" exact component={Projects} />
-        <Route path="/about" exact component={About} />
+        <div className="content">
+          <Route path="/" exact component={Projects} />
+          <Route path="/about" exact component={About} />
+        </div>
         <Footer/>
-		</div>
-  </div>
+		  </div>
+    </div>
 	</Router>
   );
 }

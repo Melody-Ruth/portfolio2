@@ -8,11 +8,16 @@ body,
 }
 
 .mainContainer {
-  height: 100%;
+  overflow: auto;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   background-color: #f5f5f5;
+}
+
+.content {
+  flex: 1 0 auto;
 }
 
 .App-logo {

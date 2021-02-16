@@ -13,6 +13,7 @@ const useStyles = makeStyles({
     myToolBar: {
         backgroundColor: "#e6e6e6",
         justifyContent: "space-between",
+        flexShrink: 0
     },
 });
   

@@ -23,20 +23,17 @@ const useStyles = makeStyles({
 const Projects = ({}) => {
   const classes = useStyles();
   return (
-    <div className={classes.bigContainer}>
-        <div className="thumbnailContainer">
-            <Thumbnail title="Archery Game" imgSrc={archeryThumbnail}/>
-            <Thumbnail title="Art Studio Painting Tool" imgSrc={artStudioThumbnail}/>
+        <div align="center">
             <Thumbnail title="Beanstalk Game" imgSrc={beanstalkThumbnail}/>
+            <Thumbnail title="Jigsaw Puzzle Game" imgSrc={puzzleThumbnail}/>
             <Thumbnail title="Cave Flood Game" imgSrc={caveFloodThumbnail}/>
-            <Thumbnail title="Elements of Magic Game" imgSrc={EoMThumbnail}/>
-            <Thumbnail title="Fish Collector Game" imgSrc={fishThumbnail}/>
             <Thumbnail title="Stipple Image Transformation Tool" imgSrc={stippleThumbnail}/>
             <Thumbnail title="Star Tours Simulation" imgSrc={starToursThumbnail}/>
+            <Thumbnail title="Archery Game" imgSrc={archeryThumbnail}/>
+            <Thumbnail title="Art Studio Painting Tool" imgSrc={artStudioThumbnail}/>
+            <Thumbnail title="Fish Collector Game" imgSrc={fishThumbnail}/>
             <Thumbnail title="Gingerbread House Maker" imgSrc={gingerbreadThumbnail}/>
-            <Thumbnail title="Jigsaw Puzzle Game" imgSrc={puzzleThumbnail}/>
         </div>
-    </div>
   )
 }
 
