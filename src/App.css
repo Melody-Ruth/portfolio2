@@ -135,6 +135,17 @@ body,
   justify-content: space-around;
   align-items: center;
   width:400px;
+  height: 100%;
+}
+
+.leftColBigger {
+  display:flex;
+  flex-direction: column;
+  padding: 30px;
+  justify-content: space-around;
+  align-items: center;
+  width:500px;
+  height: 100%;
 }
 
 .rightCol {
@@ -151,6 +162,7 @@ body,
 
 .myTextContainer {
   display: flex;
+  text-align: left;
   flex-direction: column;
 }
 
@@ -163,6 +175,16 @@ body,
   height: 400px;
 }
 
+.biggerCanvas {
+  width: 500px;
+  height: 500px;
+}
+
+.normalCanvas {
+  width: 400px;
+  height: 400px;
+}
+
 .dateLine {
   display:flex;
   width:100%;
@@ -170,5 +192,23 @@ body,
 }
 
 .colItem {
-  margin-top:10px;
+  margin-top:20px;
+}
+
+.changelogEntry {
+  background-color: #e6e6e6;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.changeText {
+  padding:10px;
+}
+
+.rightColHeader {
+  padding-bottom: 12px;
+}
+
+#instructions {
+  padding-bottom: 18px;
 }

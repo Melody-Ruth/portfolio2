@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Paper from '@material-ui/core/Paper';
 import p5 from "p5";
+import { remove, setup, draw, cursor, frameRate, getFrameRate, setFrameRate, noCursor, fullscreen, pixelDensity, displayDensity, getURL, getURLPath, getURLParams, pushStyle, popStyle, popMatrix, pushMatrix, registerPromisePreload, camera, perspective, ortho, frustum, createCamera, setCamera, setAttributes, createCanvas, resizeCanvas, noCanvas, createGraphics, blendMode, noLoop, loop, isLooping, push, pop, redraw, applyMatrix, resetMatrix, rotate, rotateX, rotateY, rotateZ, scale, shearX, shearY, translate, arc, ellipse, circle, line, point, quad, rect, square, triangle, ellipseMode, noSmooth, rectMode, smooth, strokeCap, strokeJoin, strokeWeight, bezier, bezierDetail, bezierPoint, bezierTangent, curve, curveDetail, curveTightness, curvePoint, curveTangent, beginContour, beginShape, bezierVertex, curveVertex, endContour, endShape, quadraticVertex, vertex, textOutput, gridOutput, alpha, blue, brightness, color, green, hue, lerpColor, lightness, red, saturation, background, clear, colorMode, fill, noFill, noStroke, stroke, erase, noErase, createStringDict, createNumberDict, storeItem, getItem, clearStorage, removeItem, select, selectAll, removeElements, createDiv, createP, createSpan, createImg, createA, createSlider, createButton, createCheckbox, createSelect, createRadio, createColorPicker, createInput, createFileInput, createVideo, createAudio, createCapture, createElement, describe, describeElement, setMoveThreshold, setShakeThreshold, keyIsDown, requestPointerLock, exitPointerLock, createImage, saveCanvas, saveGif, saveFrames, loadImage, image, tint, noTint, imageMode, blend, copy, filter, get, loadPixels, set, updatePixels, loadJSON, loadStrings, loadTable, loadXML, loadBytes, httpGet, httpPost, httpDo, createWriter, save, saveJSON, saveJSONObject, saveJSONArray, saveStrings, saveTable, writeFile, downloadFile, abs, ceil, constrain, dist, exp, floor, lerp, log, mag, map, max, min, norm, pow, round, sq, sqrt, fract, createVector, noise, noiseDetail, noiseSeed, randomSeed, random, randomGaussian, acos, asin, atan, atan2, cos, sin, tan, degrees, radians, angleMode, textAlign, textLeading, textSize, textStyle, textWidth, textAscent, textDescent, loadFont, text, textFont, append, arrayCopy, concat, reverse, shorten, shuffle, sort, splice, subset, float, int, str, boolean, byte, char, unchar, hex, unhex, join, match, matchAll, nf, nfc, nfp, nfs, split, splitTokens, trim, day, hour, minute, millis, month, second, year, plane, box, sphere, cylinder, cone, ellipsoid, torus, orbitControl, debugMode, noDebugMode, ambientLight, specularColor, directionalLight, pointLight, lights, lightFalloff, spotLight, noLights, loadModel, model, loadShader, createShader, shader, resetShader, normalMaterial, texture, textureMode, textureWrap, ambientMaterial, emissiveMaterial, specularMaterial, shininess, easierthanremovingcomma} from "../resources/renamed_p5_library.js";
 
 class GingerbreadCanvas extends React.Component {
     constructor(props) {
@@ -9,23 +10,27 @@ class GingerbreadCanvas extends React.Component {
     }
   
     Sketch = (p) => {
-        var myRed;
-        var myOrange;
-        var myYellow;
-        var myGreen;
-        var myBlue;
-        var myPurple;
-        var myPink;
-        var myWhite;
+        let myRed;
+        let myOrange;
+        let myYellow;
+        let myGreen;
+        let myBlue;
+        let myPurple;
+        let myPink;
+        let myWhite;
 
-        var selectedColor;
-        var selectedCandy;
+        let selectedColor;
+        let selectedCandy;
 
         //gingerbread colors
-        var lightBrown;
-        var darkBrown;
+        let lightBrown;
+        let darkBrown;
+
+        
+        //let fill = function(){return p.fill.apply(p,arguments);};
   
        p.setup = () => {
+
         p.angleMode(p.DEGREES);
         p.createCanvas(400,400);
         p.noFill();
@@ -51,33 +56,33 @@ class GingerbreadCanvas extends React.Component {
 
        
         //gumdrop arrays
-        var gumdropX = [];
-        var gumdropY = [];
-        var gumdropC = [];
+        let gumdropX = [];
+        let gumdropY = [];
+        let gumdropC = [];
 
         //peppermint arrays
-        var peppermintX = [];
-        var peppermintY = [];
-        var peppermintC = [];
+        let peppermintX = [];
+        let peppermintY = [];
+        let peppermintC = [];
 
         //candy cane arrays
-        var candycaneX = [];
-        var candycaneY = [];
-        var candycaneC = [];
+        let candycaneX = [];
+        let candycaneY = [];
+        let candycaneC = [];
 
         //icing arrays
-        var icingX = [];
-        var icingY = [];
-        var icingX2 = [];
-        var icingY2 = [];
-        var icingC = [];
+        let icingX = [];
+        let icingY = [];
+        let icingX2 = [];
+        let icingY2 = [];
+        let icingC = [];
 
-        var colorMenuX = -100;
-        var colorMenuOut = false;
-        var candyMenuX = 400;
-        var candyMenuOut = false;
+        let colorMenuX = -100;
+        let colorMenuOut = false;
+        let candyMenuX = 400;
+        let candyMenuOut = false;
 
-        var drawGumDrop = function(x, y, color) {
+        let drawGumDrop = function(x, y, color) {
             p.fill(color);
             p.arc(x, y, 40, 60, 180, 360);
             p.ellipse(x, y, 40, 20);
@@ -85,7 +90,7 @@ class GingerbreadCanvas extends React.Component {
             p.ellipse(x - 5, y - 19, 15, 8);
         };
 
-        var drawPeppermint = function(x, y, color) {
+        let drawPeppermint = function(x, y, color) {
             p.fill(color);
             p.ellipse(x, y, 42, 42);
             p.fill(255, 255, 255);
@@ -99,7 +104,7 @@ class GingerbreadCanvas extends React.Component {
             p.arc(x, y, 43, 43, 315, 335.5);
         };
 
-        var drawCandyCane = function(x, y, color) {
+        let drawCandyCane = function(x, y, color) {
             p.stroke(255, 255, 255);
             p.strokeWeight(14);
             p.line(x, y, x, y + 72);
@@ -134,22 +139,22 @@ class GingerbreadCanvas extends React.Component {
         p.fill(255, 255, 255);
         p.rect(0, 355, p.width, 100);
         
-        for (var i=0;i<icingX.length;i++) {
+        for (let i=0;i<icingX.length;i++) {
             p.stroke(icingC[i]);
             p.strokeWeight(12);
             p.line(icingX2[i], icingY2[i], icingX[i], icingY[i]);
             p.noStroke();
         }
         
-        for (var i=0;i<candycaneX.length;i++) {
+        for (let i=0;i<candycaneX.length;i++) {
             drawCandyCane(candycaneX[i], candycaneY[i], candycaneC[i]);
         }
         
-        for (var i=0;i<gumdropX.length;i++) {
+        for (let i=0;i<gumdropX.length;i++) {
             drawGumDrop(gumdropX[i], gumdropY[i], gumdropC[i]);
         }
         
-        for (var i=0;i<peppermintX.length;i++) {
+        for (let i=0;i<peppermintX.length;i++) {
             drawPeppermint(peppermintX[i], peppermintY[i], peppermintC[i]);
         }
         

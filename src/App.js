@@ -5,6 +5,7 @@ import About from './components/About.js';
 import Projects from './components/projects.js';
 import Footer from './components/footer.js';
 import ArtStudio from './art_studio/ArtStudio.js';
+import Archery from './archery/Archery.js';
 import Gingerbread from './gingerbread/Gingerbread.js';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/portfolio2/about" exact component={About} />
           <Route path="/portfolio2/Art-Studio" exact component={ArtStudio} />
           <Route path="/portfolio2/Gingerbread" exact component={Gingerbread} />
+          <Route path="/portfolio2/Archery" exact component={Archery} />
         </div>
         <Footer/>
 		  </div>

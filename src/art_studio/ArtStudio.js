@@ -1,59 +1,40 @@
 import '../App.css';
-import portraitMelody from '../images/cropped3.jpg';
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+import React, {Component} from 'react';
+import ArtStudioCanvas from './ArtStudioCanvas.js';
 import Typography from '@material-ui/core/Typography';
+import ChangeLogEntry from '../components/ChangeLogEntry.js';
+import BasicFacts from '../components/BasicFacts.js';
+import Instructions from '../components/Instructions.js';
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
-  containAbout: {
-    padding: "5%",
-    display:"flex",
-    alignItems:"space-around",
-  },
-  portrait: {
-    display: "inline-block",
-    height:350,
-  },
-  myTextContainer: {
-    display: "flex",
-    flexDirection: "column",
-    paddingLeft:50,
-  },
-  myText: {
-      margin: 10
-  }
-});
-  
-
-const ArtStudio = ({}) => {
-  const classes = useStyles();
-  return (
-    <div className={classes.containAbout}>
-        <Paper className={classes.portrait} >
-            <img 
-                src={portraitMelody} 
-                height="100%"
-                alt="Portrait of Melody Ruth" 
-                className={classes.media}
-            />
-        </Paper>
-        <div className={classes.myTextContainer}>
-            <Typography variant="h7" className={classes.myText}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nisl augue, venenatis vitae consequat vel, scelerisque ac neque. Nunc ut quam dignissim, malesuada lectus eget, posuere turpis. Nulla facilisis odio sit amet posuere rhoncus. Praesent vel varius urna. Sed porta, nisl a vestibulum porta, turpis dolor vulputate ligula, vitae rhoncus leo tortor nec lectus. Nulla pharetra placerat enim eget volutpat. Nulla convallis elementum elit, at commodo sapien. Ut iaculis accumsan erat at auctor. Sed porttitor orci dignissim malesuada dapibus.
-                Sed id sodales dui, at placerat mi. Mauris pharetra bibendum laoreet. Quisque eget dolor purus. Quisque sollicitudin fringilla eros, id cursus orci ullamcorper ac. Quisque fringilla vitae erat nec sodales. Phasellus a leo in arcu aliquet condimentum. Mauris rutrum enim eget imperdiet placerat. Morbi ultrices massa urna, at cursus eros varius auctor. Nunc volutpat turpis at vulputate placerat. Cras neque quam, dignissim eget urna sed, mollis tempus quam.
-            </Typography>
-
-            <Typography variant="h7" className={classes.myText}>
-            Nunc placerat ut odio et venenatis. Praesent efficitur a enim quis volutpat. In hac habitasse platea dictumst. Vivamus scelerisque varius laoreet. Aliquam in nulla leo. Fusce arcu est, pretium fermentum commodo sed, iaculis nec velit. Aliquam molestie orci id felis porttitor, ac cursus turpis imperdiet. Morbi ut ex dui. Etiam feugiat convallis tempus.
-            Nunc lacinia accumsan enim. Mauris eget dignissim purus, et ultrices leo. Sed mauris magna, bibendum in porttitor a, convallis ut mauris. Donec lacus massa, bibendum nec urna tempor, scelerisque commodo erat. Phasellus auctor nisl ut condimentum convallis. Morbi lobortis mauris quis elit vestibulum tempor. Phasellus tempus sapien non imperdiet volutpat. Nulla dictum orci vitae iaculis tempor. 
-            </Typography>
+export default class ArtStudio extends Component {
+  render() {
+    return (
+        <div className="myContainer">
+            <div className="leftColBigger">
+                <ArtStudioCanvas className="colItem"/>
+                <BasicFacts name='Art Studio' start='2015' end = '2019' description='Art Studio is a painting tool. My goal was to provide basic drawing tool functionality while keeping the design intuitive
+and fun, with features represented by stylized versions of their real-world counterparts, rather than by menus and buttons.'/>
+            </div>
+            <div className="rightCol">
+                <Instructions description='Click on the brushes to use them. Click and drag to paint, or right click to fill the whole canvas. Click the pencil to use it.
+Holding right click with the pencil will erase (draw white). Click the undo button to undo the last stroke or paint fill.
+Click on the paint splotches in the palette to change colors, or click on the paint tube to select a color using rgb sliders.
+From the color picker, click the save icon to save the current color to one of the four slots. Click on any of the saved colors to switch to that color.
+Click on a saved color, then the trashcan icon, to remove it from its slot.
+Click the bowl of water to reduce the opacity of the paint. Click the paper towel to reset to fully opaque.'/>
+                <div className="myTextContainer colItem">
+                    <Typography variant="h5" className="rightColHeader">
+                    Changelog:
+                    </Typography>
+                    <ChangeLogEntry release="2019 1.4" description='Added a "water bowl" and "paper towel" which allow the user to control the opacity of the stroke.'/>
+                    <ChangeLogEntry release="2019 1.3" description='Moved from Khan Academy to this website. Added a color picker. Users can select colors, save them to four slots of storage, and remove colors from storage.'/>
+                    <ChangeLogEntry release="2015 1.2" description='Added pencil and eraser.'/>
+                    <ChangeLogEntry release="2015 1.1" description='Added a "paintbucket" tool: users can right click to cover the entire canvas. Bug fix: paintbrush no longer displays under undo button.'/>
+                    <ChangeLogEntry release="2015 1.0" description="First release on Khan Academy using their interactive processing.js editor. Paintbrushes, palette, canvas, painting functionality, undo button."/>
+                </div>
+            </div>
         </div>
-    </div>
-  )
+      )
+  }
 }
 
-export default ArtStudio;
