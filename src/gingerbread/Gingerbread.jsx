@@ -3,7 +3,7 @@ import portraitMelody from '../images/cropped3.jpg';
 import React, {Component} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import GingerbreadCanvas from './GingerbreadCanvas.js';
+import GingerbreadCanvas from './GingerbreadCanvas';
 import Typography from '@material-ui/core/Typography';
 
 export default class Gingerbread extends Component {

@@ -11,7 +11,7 @@ import starToursThumbnail from '../images/thumbnails/star_tours_thumbnail.png';
 import stippleThumbnail from '../images/thumbnails/stipple_thumbnail.jpg';
 import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Thumbnail from './Thumbnail.js';
+import Thumbnail from './Thumbnail';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({

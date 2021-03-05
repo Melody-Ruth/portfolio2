@@ -1,10 +1,10 @@
 import '../App.css';
 import React, {Component} from 'react';
-import ArtStudioCanvas from './ArtStudioCanvas.js';
+import ArtStudioCanvas from './ArtStudioCanvas';
 import Typography from '@material-ui/core/Typography';
-import ChangeLogEntry from '../components/ChangeLogEntry.js';
-import BasicFacts from '../components/BasicFacts.js';
-import Instructions from '../components/Instructions.js';
+import ChangeLogEntry from '../components/ChangeLogEntry';
+import BasicFacts from '../components/BasicFacts';
+import Instructions from '../components/Instructions';
 
 export default class ArtStudio extends Component {
   render() {

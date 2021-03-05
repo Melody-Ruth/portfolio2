@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from "@material-ui/styles";
 import '../App.css';
 import React from 'react';
-import myTheme from "./myTheme.js";
+import myTheme from "./myTheme";
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
