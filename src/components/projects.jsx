@@ -28,7 +28,7 @@ const Projects = ({}) => {
     {title: 'Jigsaw Puzzle Game', img: puzzleThumbnail, link: ''},
     {title: 'Cave Flood Game', img: caveFloodThumbnail, link: ''},
     {title: 'Stipple Image Transformation Tool', img: stippleThumbnail, link: ''},
-    {title: 'Star Tours Simulation', img: starToursThumbnail, link: ''},
+    {title: 'Star Tours Simulation', img: starToursThumbnail, link: '/portfolio2/Star-Tours'},
     {title: 'Archery Game', img: archeryThumbnail, link: '/portfolio2/Archery/'},
     {title: 'Art Studio Painting Tool', img: artStudioThumbnail, link: '/portfolio2/Art-Studio/'},
     {title: 'Fish Collector Game', img: fishThumbnail, link: ''},
