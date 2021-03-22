@@ -7,6 +7,8 @@ import Footer from './components/footer.js';
 import ArtStudio from './art_studio/ArtStudio.js';
 import Archery from './archery/Archery.js';
 import Gingerbread from './gingerbread/Gingerbread.js';
+import CaveFlood from './cave_flood/code/CaveFlood.jsx';
+import StarTours from './star_tours/StarTours.jsx';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -23,6 +25,8 @@ function App() {
           <Route path="/portfolio2/Art-Studio" exact component={ArtStudio} />
           <Route path="/portfolio2/Gingerbread" exact component={Gingerbread} />
           <Route path="/portfolio2/Archery" exact component={Archery} />
+          <Route path="/portfolio2/Star-Tours" exact component={StarTours} />
+          <Route path="/portfolio2/Cave-Flood" exact component={CaveFlood} />
         </div>
         <Footer/>
 		  </div>

@@ -227,6 +227,7 @@ class CaveFloodCanvas extends React.Component {
       };
 
       p.keyPressed = function() {
+        keyCode = p.keyCode;
         if (keyCode === RIGHT_ARROW) {
           rightPressed = true;
         }
@@ -2251,6 +2252,8 @@ class CaveFloodCanvas extends React.Component {
             pmouseY = p.pmouseY;
             mouseX = p.mouseX;
             mouseY = p.mouseY;
+            width = p.width;
+            height = p.height;
             mouseIsPressed = p.mouseIsPressed;
             keyCode = p.keyCode;
             if (state === "menu") {
