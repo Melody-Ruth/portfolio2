@@ -242,3 +242,19 @@ body,
 #instructions {
   padding-bottom: 18px;
 }
+
+#stippleImg {
+  max-width: 80vw;
+}
+
+#stippleImgContainer {
+  display: flex;
+  justify-content: center;
+}
+
+#results {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding-bottom: 25px;
+}

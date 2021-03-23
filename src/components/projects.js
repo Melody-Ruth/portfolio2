@@ -27,7 +27,7 @@ const Projects = ({}) => {
     {title: 'Beanstalk Game', img: beanstalkThumbnail, link: '/portfolio2/Beanstalk', available: true},
     {title: 'Jigsaw Puzzle Game', img: puzzleThumbnail, link: '', available: false},
     {title: 'Cave Flood Game', img: caveFloodThumbnail, link: '/portfolio2/Cave-Flood', available: true},
-    {title: 'Stipple Image Transformation Tool', img: stippleThumbnail, link: '', available: false},
+    {title: 'Stipple Image Transformation Tool', img: stippleThumbnail, link: '/portfolio2/Stipple', available: true},
     {title: 'Star Tours Simulation', img: starToursThumbnail, link: '/portfolio2/Star-Tours', available: true},
     {title: 'Archery Game', img: archeryThumbnail, link: '/portfolio2/Archery/', available: true},
     {title: 'Art Studio Painting Tool', img: artStudioThumbnail, link: '/portfolio2/Art-Studio/', available: true},
