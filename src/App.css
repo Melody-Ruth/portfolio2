@@ -158,6 +158,16 @@ body,
   height: 100%;
 }
 
+.leftCol800 {
+  display:flex;
+  flex-direction: column;
+  padding: 30px;
+  justify-content: space-around;
+  align-items: center;
+  width:800px;
+  height: 100%;
+}
+
 .rightCol {
   display:flex;
   flex-direction: column;
@@ -193,6 +203,11 @@ body,
 .canvas600 {
   width: 600px;
   height: 600px;
+}
+
+.hugeCanvas {
+  width: 800px;
+  height: 500px;
 }
 
 .normalCanvas {
