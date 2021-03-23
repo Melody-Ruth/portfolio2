@@ -11,12 +11,13 @@ import CaveFlood from './cave_flood/code/CaveFlood.jsx';
 import StarTours from './star_tours/StarTours.jsx';
 import Beanstalk from './beanstalk/Beanstalk.jsx';
 import Stipple from './stipple/Stipple.jsx';
-import { makeStyles } from '@material-ui/core/styles';
-
+import { ThemeProvider } from "@material-ui/styles";
+import myTheme from './components/myTheme';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 function App() {
   return (
+    <ThemeProvider theme={myTheme}>
     <Router>
 		<div className="App" >
       <div className="mainContainer">
@@ -36,6 +37,7 @@ function App() {
 		  </div>
     </div>
 	</Router>
+  </ThemeProvider>
   );
 }
 

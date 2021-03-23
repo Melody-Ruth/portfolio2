@@ -9,7 +9,7 @@ const myTheme = createMuiTheme({
       // contrastText: will be calculated to contrast with palette.primary.main
     },
     secondary: {
-      main: "#f7ce5c",
+      main: "#D3B1C2",
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,

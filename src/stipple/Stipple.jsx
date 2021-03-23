@@ -1,10 +1,34 @@
 import '../App.css';
 import React, {Component} from 'react';
 import titleImg from './title.png';
+import Button from '@material-ui/core/Button';
+import { ThemeProvider } from "@material-ui/styles";
+
+import { createMuiTheme } from "@material-ui/core/styles";
+
+const myTheme2 = createMuiTheme({
+  palette: {
+    primary: {
+      // light: will be calculated from palette.primary.main,
+            main: "#613659",
+      // dark: will be calculated from palette.primary.main,
+      // contrastText: will be calculated to contrast with palette.primary.main
+    },
+    secondary: {
+      main: "#f7ce5c",
+    },
+    contrastThreshold: 3,
+    tonalOffset: 0.2,
+  },
+  spacing: 8,
+});
 
 const Stipple = () => {
     var mainWidth = window.innerWidth-10;
     var testWidth;
+    const updateImgText = (e) => {
+        document.getElementById("imgFileText").innerHTML = e.target.files[0].name;
+    }
     const handleImageUpload = () => {
         var readImage = document.getElementById("toStipple").files[0];
         if (readImage.type != "image/png" && readImage.type != "image/jpeg") {
@@ -124,6 +148,7 @@ const Stipple = () => {
         }
     }
     return (
+        
         <div>
             <div id="stippleImgContainer">
                 <img src={titleImg} id="stippleImg"/>
@@ -133,8 +158,31 @@ const Stipple = () => {
             <p id="prompt">Choose an image (.png or .jpg) to transform, then press "Stipple!" to see the new image. 
             The uploaded image and the new image will appear below. 
             Right click on the new image and select "Save Image As..." to download it.</p>
-            <input type="file" id="toStipple" />
-            <input type="button" value="Stipple!" onClick={doStipple}/>
+            <div>
+            <Button
+                variant="contained"
+                component="label"
+                color="primary"
+                className="myButton"
+                >
+                Upload File
+                <input
+                    type="file"
+                    id="toStipple"
+                    onChange={updateImgText}
+                    hidden
+                />
+            </Button>
+            <p id="imgFileText" style={{display:'inline-block', paddingLeft:5, paddingRight:15}}>No file selected.</p>
+            <Button
+                variant="contained"
+                component="label"
+                className="myButton"
+                color="secondary"
+                onClick={doStipple}>
+                    Stipple!
+            </Button>
+            </div>
             <img id="display-image" src="" />
             </div>
 
@@ -146,6 +194,7 @@ const Stipple = () => {
             <canvas id="newCanvas"/>
             </div>
         </div>
+        
     );
 }
 
