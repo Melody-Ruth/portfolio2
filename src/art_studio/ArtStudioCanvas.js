@@ -701,6 +701,7 @@ class ArtStudioCanvas extends React.Component {
             startIndex = 0;
             p.noFill();
             if (paintingXs.length > 0) {
+                //console.log(paintingLetGoPoints);
                 for (var i = 0; i < paintingLetGoPoints.length; i++) {
                     if (paintingXs[startIndex] !== "background") {
                         p.noFill();
@@ -722,17 +723,18 @@ class ArtStudioCanvas extends React.Component {
                         p.noFill();
                     }
                 }
-                p.print(startIndex + ", " + paintingCs.length);
-                p.print(paintingCs[startIndex]);
-                p.stroke(p.red(paintingCs[startIndex]),p.green(paintingCs[startIndex]),p.blue(paintingCs[startIndex]),paintingTs[startIndex]);
-                p.strokeWeight(paintingSs[startIndex]);
-                p.beginShape();
-                p.curveVertex(paintingXs[startIndex],paintingYs[startIndex]);
-                for (var i = startIndex; i < paintingXs.length; i++) {
-                    p.curveVertex(paintingXs[i],paintingYs[i]);
+                if (startIndex < paintingCs.length) {
+                   // p.print(startIndex + ", " + paintingCs.length);
+                    p.stroke(p.red(paintingCs[startIndex]),p.green(paintingCs[startIndex]),p.blue(paintingCs[startIndex]),paintingTs[startIndex]);
+                    p.strokeWeight(paintingSs[startIndex]);
+                    p.beginShape();
+                    p.curveVertex(paintingXs[startIndex],paintingYs[startIndex]);
+                    for (var i = startIndex; i < paintingXs.length; i++) {
+                        p.curveVertex(paintingXs[i],paintingYs[i]);
+                    }
+                    p.curveVertex(paintingXs[paintingXs.length-1],paintingYs[paintingXs.length-1]);
+                    p.endShape();
                 }
-                p.curveVertex(paintingXs[paintingXs.length-1],paintingYs[paintingXs.length-1]);
-                p.endShape();
                 p.noStroke();
             }
             /*for (var i = 0; i < paintingXs.length; i++) {
@@ -971,7 +973,10 @@ class ArtStudioCanvas extends React.Component {
                 }
                 if (mouseY < -29.5*mouseX + 13207.5 && mouseY > -28.5*mouseX + 6045 && mouseY > 0.0851*mouseX + 42.1 && mouseY < 0.128*mouseX + 319.468 && pmouseY < -29.5*pmouseX + 13207.5 && pmouseY > -28.5*pmouseX + 6045 && pmouseY > 0.0851*pmouseX + 42.1 && pmouseY < 0.128*pmouseX + 319.468) {
                     if (mouseIsClicked) {
+                        console.log("Just let go???");
+                        console.log(paintingXs.length-1);
                         paintingLetGoPoints.push(paintingXs.length - 1);
+                        console.log(paintingLetGoPoints);
                         cp = false;
                     }
                 } else if (cp) {
