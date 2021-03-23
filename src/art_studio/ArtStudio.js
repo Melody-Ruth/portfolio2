@@ -1,6 +1,6 @@
 import '../App.css';
 import React, {Component} from 'react';
-import ArtStudioCanvas from './ArtStudioCanvas.js';
+import ArtStudioCanvas from './ArtStudioCanvas2.jsx';
 import Typography from '@material-ui/core/Typography';
 import ChangeLogEntry from '../components/ChangeLogEntry.js';
 import BasicFacts from '../components/BasicFacts.js';

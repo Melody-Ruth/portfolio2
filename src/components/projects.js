@@ -24,18 +24,18 @@ const useStyles = makeStyles({
 const Projects = ({}) => {
   const classes = useStyles();
   const [thumbnails, setThumbnails] = useState([
-    {title: 'Beanstalk Game', img: beanstalkThumbnail, link: ''},
-    {title: 'Jigsaw Puzzle Game', img: puzzleThumbnail, link: ''},
-    {title: 'Cave Flood Game', img: caveFloodThumbnail, link: '/portfolio2/Cave-Flood'},
-    {title: 'Stipple Image Transformation Tool', img: stippleThumbnail, link: ''},
-    {title: 'Star Tours Simulation', img: starToursThumbnail, link: '/portfolio2/Star-Tours'},
-    {title: 'Archery Game', img: archeryThumbnail, link: '/portfolio2/Archery/'},
-    {title: 'Art Studio Painting Tool', img: artStudioThumbnail, link: '/portfolio2/Art-Studio/'},
-    {title: 'Gingerbread House Maker', img: gingerbreadThumbnail, link: '/portfolio2/Gingerbread/'},
+    {title: 'Beanstalk Game', img: beanstalkThumbnail, link: '', available: false},
+    {title: 'Jigsaw Puzzle Game', img: puzzleThumbnail, link: '', available: false},
+    {title: 'Cave Flood Game', img: caveFloodThumbnail, link: '/portfolio2/Cave-Flood', available: true},
+    {title: 'Stipple Image Transformation Tool', img: stippleThumbnail, link: '', available: false},
+    {title: 'Star Tours Simulation', img: starToursThumbnail, link: '/portfolio2/Star-Tours', available: true},
+    {title: 'Archery Game', img: archeryThumbnail, link: '/portfolio2/Archery/', available: true},
+    {title: 'Art Studio Painting Tool', img: artStudioThumbnail, link: '/portfolio2/Art-Studio/', available: true},
+    {title: 'Gingerbread House Maker', img: gingerbreadThumbnail, link: '/portfolio2/Gingerbread/', available: false},
   ]);
   return (
         <div align="center">
-            {thumbnails.map((item,i) => ( item.title !='Gingerbread House Maker' ? 
+            {thumbnails.map((item,i) => ( item.available ? 
             <Thumbnail key={i} title={item.title} imgSrc={item.img} link={item.link}/> : <span key={i}></span>
             ))}
         </div>
