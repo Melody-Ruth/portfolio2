@@ -11,6 +11,7 @@ import CaveFlood from './cave_flood/code/CaveFlood.jsx';
 import StarTours from './star_tours/StarTours.jsx';
 import Beanstalk from './beanstalk/Beanstalk.jsx';
 import Stipple from './stipple/Stipple.jsx';
+import Puzzle from './puzzle/code/Puzzle';
 import { ThemeProvider } from "@material-ui/styles";
 import myTheme from './components/myTheme';
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -31,6 +32,7 @@ function App() {
           <Route path="/portfolio2/Star-Tours" exact component={StarTours} />
           <Route path="/portfolio2/Cave-Flood" exact component={CaveFlood} />
           <Route path="/portfolio2/Beanstalk" exact component={Beanstalk} />
+          <Route path="/portfolio2/Puzzle" exact component={Puzzle} />
           <Route path="/portfolio2/Stipple" exact component={Stipple} />
         </div>
         <Footer/>

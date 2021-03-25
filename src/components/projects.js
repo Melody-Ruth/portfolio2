@@ -25,7 +25,7 @@ const Projects = ({}) => {
   const classes = useStyles();
   const [thumbnails, setThumbnails] = useState([
     {title: 'Beanstalk Game', img: beanstalkThumbnail, link: '/portfolio2/Beanstalk', available: true},
-    {title: 'Jigsaw Puzzle Game', img: puzzleThumbnail, link: '', available: false},
+    {title: 'Jigsaw Puzzle Game', img: puzzleThumbnail, link: '/portfolio2/Puzzle', available: true},
     {title: 'Cave Flood Game', img: caveFloodThumbnail, link: '/portfolio2/Cave-Flood', available: true},
     {title: 'Stipple Image Transformation Tool', img: stippleThumbnail, link: '/portfolio2/Stipple', available: true},
     {title: 'Star Tours Simulation', img: starToursThumbnail, link: '/portfolio2/Star-Tours', available: true},
