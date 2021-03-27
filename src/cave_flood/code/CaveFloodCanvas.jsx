@@ -3,7 +3,7 @@ import Paper from '@material-ui/core/Paper';
 import p5 from "p5";
 import singleLowRes from "../graphics/currently_using/crystal_low_res.png";
 import groupLowRes from "../graphics/currently_using/crystal_group2_low_res.png";
-import groupLowResWater from "../graphics/currently_using/crystal_group_water_low_res.png";
+import groupLowResWater from "../graphics/currently_using/water_group.png";
 import singleLowResWater from "../graphics/currently_using/crystal_water_low_res.png";
 import darkness1Img from "../graphics/currently_using/darkness1.png";
 import darkness2Img from "../graphics/currently_using/darkness2.png";
@@ -15,6 +15,7 @@ import mapImg from "../graphics/currently_using/map_low_res.png";
 import greyMapImg from "../graphics/currently_using/map_greyedout_low_res.png";
 import settingsImg from "../graphics/currently_using/settings_transparent2.png";
 import settingsHoverImg from "../graphics/currently_using/settings_opaque2.png";
+import testPuzzle from "../../puzzle/graphics/bottom_out.png";
 
 class CaveFloodCanvas extends React.Component {
     constructor(props) {
@@ -53,6 +54,8 @@ class CaveFloodCanvas extends React.Component {
       var numCrystals = 3;//Have to decide early so we know how many crystal images to load. Later each crystal will be assigned a crystal image to manipulate with the waterlevel.
       var crystalImages = [];//water crystal group images. One for each crystal group
       var singleCrystalImages = [];//water single crystal images. One for each crystal
+      var crystalImagesCopyFrom = [];//water crystal group images. One for each crystal group
+      var singleCrystalImagesCopyFrom = [];//water single crystal images. One for each crystal
 
       var rotateImage = function(img,theta) {//img: The image to be rotated. theta: How many degrees to rotate by
         var theta = -theta;//I messed the code up so it rotate by -theta not theta, so I correct it here
@@ -76,6 +79,30 @@ class CaveFloodCanvas extends React.Component {
         var oldX,oldY;
         img2.loadPixels();
         img.loadPixels();
+
+
+        /*
+        for (var qrz1 = 0; qrz1 < img.width; qrz1++) {
+          for (var qrz2 = 0; qrz2 < img.height; qrz2++) {
+            //console.log(qrz2 * img.width + qrz1, img.pixels.length);
+            if (4*(qrz2 * img.width + qrz1) > img.pixels.length) {
+              console.log("WHat????");
+            }
+            img2.pixels[4 * (qrz2 * img.width + qrz1)] = img.pixels[4 * (qrz2 * img.width + qrz1)];
+          }
+          
+        }
+        img2.updatePixels();
+        return img2;*/
+        /*for (var i = 0; i < fullWidth; i++) {
+          for (var j = 0; j < fullHeight; j++) {
+            img2.set(i,j,color(255,0,0,150));
+          }
+        }
+        img2.updatePixels();
+        return img2;*/
+
+
         //One strip in the middle gets missed. We correct it here.
         for (var i = 0; i < fullWidth; i++) {
           var j = floor(halfHeight);
@@ -160,9 +187,13 @@ class CaveFloodCanvas extends React.Component {
               img2.set(i,j,color(oldColor));
             }
           }
-        }
-        img.updatePixels();
+        }/*
+        for (var i = 3; i < img2.pixels.length; i+=4) {
+          img2.pixels[i] = 255;
+        }*/
+        //img.updatePixels();
         img2.updatePixels();
+        console.log("Rotated!");
         return img2;
       };
 
@@ -180,7 +211,6 @@ class CaveFloodCanvas extends React.Component {
       var settings,settingsHover;
 
       p.preload = () => {
-
         crystal = loadImage(singleLowRes);
         crystalGroup = loadImage(groupLowRes);
         crystalGroupWater = loadImage(groupLowResWater);
@@ -195,14 +225,30 @@ class CaveFloodCanvas extends React.Component {
         greyMap = loadImage(greyMapImg);
         settings = loadImage(settingsImg);
         settingsHover = loadImage(settingsHoverImg);
+        //crystal = loadImage(testPuzzle);
+        //crystalGroup = loadImage(testPuzzle);
+        //crystalGroupWater = loadImage(testPuzzle);
+        /*crystalWater = loadImage(testPuzzle);
+        darkness = loadImage(testPuzzle);
+        darkness2 = loadImage(testPuzzle);
+        waterDarkness = loadImage(testPuzzle);
+        mapCover = loadImage(testPuzzle);
+        menu = loadImage(testPuzzle);
+        help = loadImage(testPuzzle);
+        mapImage = loadImage(testPuzzle);
+        greyMap = loadImage(testPuzzle);
+        settings = loadImage(testPuzzle);
+        settingsHover = loadImage(testPuzzle);*/
         
         //Load the water crystal group images. They each need to load their own so that manipulating one won't affect the others.
         for (var i = 0; i < 30; i++) {
-          crystalImages[i] = loadImage(groupLowResWater);
+          crystalImagesCopyFrom[i] = loadImage(groupLowResWater);
+          //crystalImages[i] = loadImage(testPuzzle);
         }
         //Load the water crystal images. They each need to load their own so that manipulating one won't affect the others.
         for (var i = 0; i < 30; i++) {
-          singleCrystalImages[i] = loadImage(singleLowResWater);
+          singleCrystalImagesCopyFrom[i] = loadImage(singleLowResWater);
+          //singleCrystalImages[i] = loadImage(testPuzzle);
         }
         
       }
@@ -266,7 +312,7 @@ class CaveFloodCanvas extends React.Component {
       var g = 0.1633;//Pull of gravity. I flip it when the ball is in water to simulate buoyancy overpowering gravity.
       var ballStartPos = [60,90];//Where the ball starts the game
       //Should start 60,3790
-      var waterLevel = 7000;//Starting water level
+      var waterLevel = 3000;//Starting water level
       var waterColor = [155, 151, 230];
       //var groundWaterColor = [89,169,194];
       var groundWaterColor = [20, 81, 130];
@@ -429,7 +475,6 @@ class CaveFloodCanvas extends React.Component {
               stroke(255, 255, 255, 200);
               strokeWeight(this.h/10);
               if (this.hover) {
-                console.log("hi2");
                   fill(255, 255, 255, 75);
               } else {
                   noFill();
@@ -441,7 +486,6 @@ class CaveFloodCanvas extends React.Component {
               this.pressed = false;
               this.hover = false;
               if (sqrt(sq(mouseX-this.x)+sq(mouseY-this.y)) < this.r) {
-                  console.log("hi1");
                   this.hover = true;
                   onAButton = true;
                   if (mouseIsPressed) {
@@ -614,7 +658,6 @@ class CaveFloodCanvas extends React.Component {
           if (sqrt(sq(ball.p[0]-this.p[0])+sq(ball.p[1]-this.p[1])) < this.r+ball.r && ball.p[1] > this.p[1]) {
             var unitRamp = [1/sqrt(1+sq(m)),m/sqrt(1+sq(m))];
             var wallTheta = atan(m);
-            //console.log("hi");
               //Have to adjust because of the radius of the ball.
               ball.restingTop = true;//The ball is on a ramp
               //Dot product of the ball's velocity and a unit vector in the direction of the ramp i.e. How much is the ball going in a direction parallel to the ramp?
@@ -761,9 +804,7 @@ class CaveFloodCanvas extends React.Component {
             }
             ball.a[0] = aTotal*unitRamp[0];
             ball.a[1] = aTotal*unitRamp[1];
-            //console.log(aTotal);
           } else if (ball.p[0]-ball.r < this.x) {//Bouncing off circle 1
-            //console.log("hello");
             this.theta = atan((ball.p[1]-this.p1[1])/(ball.p[0]-this.p1[0]));
             var m = -1/tan(this.theta);
             var b = ball.p[1]-ball.p[0]*m;
@@ -830,7 +871,6 @@ class CaveFloodCanvas extends React.Component {
               //println(sqrt(sq(ball.v[0])+sq(ball.v[1])));
             }*/
             if (sqrt(sq(ball.p[0]-this.p2[0])+sq(ball.p[1]-this.p2[1])) > this.r-ball.r && sqrt(sq(ball.p[0]-this.p2[0])+sq(ball.p[1]-this.p2[1])) < this.r-ball.r+150 && ball.p[1] > this.p2[1]) {
-              //console.log("hello");
               var unitRamp = [1/sqrt(1+sq(m)),m/sqrt(1+sq(m))];
               var wallTheta = atan(m);
                 //Have to adjust because of the radius of the ball.
@@ -858,7 +898,6 @@ class CaveFloodCanvas extends React.Component {
                 ball.a[1] = aTotal*unitRamp[1];
             }
             if (sqrt(sq(ball.p[0]-this.p2[0])+sq(ball.p[1]-this.p2[1])) > this.r-ball.r && sqrt(sq(ball.p[0]-this.p2[0])+sq(ball.p[1]-this.p2[1])) < this.r-ball.r+150 && ball.p[1] <= this.p2[1]) {
-              //console.log("hi");
               var unitRamp = [1/sqrt(1+sq(m)),m/sqrt(1+sq(m))];
               var wallTheta = atan(m);
                 //Have to adjust because of the radius of the ball.
@@ -1140,18 +1179,6 @@ class CaveFloodCanvas extends React.Component {
           }
         };
         passage.collide = function() {
-          //console.log(this.cutOuts);
-          /*this.ballIn = false;
-          var shouldTest = true;
-          for (var j = 0; j < this.deferList.length; j++) {
-            if (passages[deferList[j]].ballIn) {
-              shouldTest = false;
-            }
-            if (passages[this.deferList[j]].testCollide) {
-              shouldTest = false;
-            }
-          }*/
-          //var myShouldTest = true;
           this.shouldTestRight = true;
           this.shouldTestLeft = true;
           this.shouldTestUp = true;
@@ -1160,29 +1187,22 @@ class CaveFloodCanvas extends React.Component {
             if (this.cutOuts[j][0] === 'l') {
               if (ball.p[1]-ball.r > this.cutOuts[j][1] && ball.p[1]+ball.r < this.cutOuts[j][2]) {
                 this.shouldTestLeft = false;
-                //console.log("hi "+myShouldTest);
               }
             } else if (this.cutOuts[j][0] === 'r') {
               if (ball.p[0]+ball.r > this.x+this.w*3/4 && ball.p[0] < this.x+this.w+ball.r && ball.p[1]-ball.r > this.cutOuts[j][1] && ball.p[1]+ball.r < this.cutOuts[j][2]) {
                 this.shouldTestRight = false;
-                //console.log("hi "+myShouldTest);
               }
             } else if (this.cutOuts[j][0] === 'u') {
               if (ball.p[1] - ball.r < this.y+5 && ball.p[1]+ball.r > this.y-5 && ball.p[0]-ball.r > this.cutOuts[j][1] && ball.p[0]+ball.r < this.cutOuts[j][2]) {
                 this.shouldTestUp = false;
-                //console.log("hi "+myShouldTest);
               }
             } else if (this.cutOuts[j][0] === 'd') {
               if (ball.p[1] + ball.r > this.y+this.h-5 && ball.p[1]-ball.r < this.y+this.h+5 && ball.p[0]-ball.r > this.cutOuts[j][1] && ball.p[0]+ball.r < this.cutOuts[j][2]) {
                 this.shouldTestDown = false;
-                //console.log("hi "+myShouldTest);
               }
             }
           }
           if (ball.p[0] > this.x && ball.p[0] < this.x+this.w && ball.p[1]+ball.r > this.y && ball.p[1]-ball.r < this.y+this.h || ball.p[0]+ball.r > this.x && ball.p[0]-ball.r < this.x+this.w && ball.p[1] > this.y && ball.p[1] < this.y+this.h) {
-            /*if (this.cutOuts.length === 1) {
-              console.log("Uh, oh "+myShouldTest);
-            }*/
             ball.inPassage = true;
             this.ballIn = true;
             if (this.shouldTestLeft && this.left && ball.p[0]-ball.r < this.x) {//Left side
@@ -1191,8 +1211,6 @@ class CaveFloodCanvas extends React.Component {
               var perpendicularVelocity = -ball.e*sqrt(sq(ball.v[0])+sq(ball.v[1])-sq(parallelVelocity));
               ball.v[0] = parallelVelocity*unitRamp[0] - perpendicularVelocity*unitRamp[1];
               ball.v[1] = parallelVelocity*unitRamp[1] + perpendicularVelocity*unitRamp[0];
-              //ball.v[0] *= ball.e;
-              //ball.v[1] *= ball.e;
               var theta = 90;
               var aTotal = g*sin(theta);
               if (ball.right) {
@@ -1213,8 +1231,6 @@ class CaveFloodCanvas extends React.Component {
               var perpendicularVelocity = ball.e*sqrt(sq(ball.v[0])+sq(ball.v[1])-sq(parallelVelocity));
               ball.v[0] = parallelVelocity*unitRamp[0] - perpendicularVelocity*unitRamp[1];
               ball.v[1] = parallelVelocity*unitRamp[1] + perpendicularVelocity*unitRamp[0];
-              //ball.v[0] *= ball.e;
-              //ball.v[1] *= ball.e;
               var theta = 90;
               var aTotal = g*sin(theta);
               if (ball.right) {
@@ -1230,7 +1246,6 @@ class CaveFloodCanvas extends React.Component {
               ball.a[1] = aTotal*unitRamp[1];
             }
             if (this.shouldTestUp && this.up && ball.p[1]-ball.r < this.y) {//ceiling
-              //console.log("hi");
               ball.restingTop = true;
               this.m = 0;
               this.b = this.y+this.h;
@@ -1240,11 +1255,8 @@ class CaveFloodCanvas extends React.Component {
               var perpendicularVelocity = ball.e*sqrt(sq(ball.v[0])+sq(ball.v[1])-sq(parallelVelocity));
               ball.v[0] = parallelVelocity*unitRamp[0] - perpendicularVelocity*unitRamp[1];
               ball.v[1] = parallelVelocity*unitRamp[1] + perpendicularVelocity*unitRamp[0];
-              //ball.v[0] *= ball.e;
-              //ball.v[1] *= ball.e;
               var theta = atan(this.m);
               var aTotal = g*sin(theta);
-              //console.log(sin(theta)+" "+cos(theta));
               if (ball.right) {
                 aTotal += ball.rightForce*ball.m*cos(theta);
               }
@@ -1267,8 +1279,6 @@ class CaveFloodCanvas extends React.Component {
               var perpendicularVelocity = -ball.e*sqrt(sq(ball.v[0])+sq(ball.v[1])-sq(parallelVelocity));
               ball.v[0] = parallelVelocity*unitRamp[0] - perpendicularVelocity*unitRamp[1];
               ball.v[1] = parallelVelocity*unitRamp[1] + perpendicularVelocity*unitRamp[0];
-              //ball.v[0] *= ball.e;
-              //ball.v[1] *= ball.e;
               var theta = atan(this.m);
               var aTotal = g*sin(theta);
               if (ball.right) {
@@ -1369,97 +1379,71 @@ class CaveFloodCanvas extends React.Component {
         crystalObject.theta = theta;
         crystalObject.r = s/2;
         crystalObject.index = index;
-        /*image(crystalGroup,0,0,500,500);
-        if (type === 2) {
-          crystalGroup.loadPixels();
-          for (var i = 0; i < crystalGroup.pixels.length; i+=4) {
-            crystalGroup.pixels[i+3] = 0;
-          }
-          crystalGroup.updatePixels();
-        }*/
         crystalObject.updateImage = function() {
           if (timer === 0) {
-            if (this.type === 2) {
-              crystalImages[this.index].loadPixels();
-              for (var i = 0; i < crystalImages[this.index].pixels.length; i+=4) {
-                crystalImages[this.index].pixels[i+3] = 0;
-              }
-              crystalImages[this.index].updatePixels();
-            } else if (this.type === 1) {
-              singleCrystalImages[this.index].loadPixels();
-              for (var i = 0; i < singleCrystalImages[this.index].pixels.length; i+=4) {
-                singleCrystalImages[this.index].pixels[i+3] = 0;
-              }
-              singleCrystalImages[this.index].updatePixels();
-            }
           } else if (this.type === 2 && waterLevel < this.p[1] + this.s*sqrt(2) && waterLevel > this.p[1]){
             if (this.theta === 0) {
               crystalImages[this.index].loadPixels();
+              crystalImagesCopyFrom[this.index].loadPixels();
               var start = floor(groupWidth*(waterLevel-this.p[1])/this.s)*groupWidth*4;
               var end = (floor(groupWidth*(waterLevel-this.p[1])/this.s)+10)*groupWidth*4;
               var start2 = 0;
               var end2 = crystalImages[index].pixels.length;
-              for (var i = start2; i < end2; i+=4) {
-                if (i > start && i < end && !(crystalImages[this.index].pixels[i] === 0 && crystalImages[this.index].pixels[i+1] === 0 && crystalImages[this.index].pixels[i+2] === 0)) {
-                  crystalImages[this.index].pixels[i+3] = 255;
+              for (var i = 0; i < crystalImages[this.index].pixels.length; i++) {
+                if (i > start && i < end) {
+                  crystalImages[this.index].pixels[i] = crystalImagesCopyFrom[this.index].pixels[i];
                 }
               }
               crystalImages[this.index].updatePixels();
-              //console.log(this.p[0]);
             } else {
-              //console.log(crystalImages[this.index].height);
               crystalImages[this.index].loadPixels();
-              var start = floor((groupWidth*sqrt(2))*(waterLevel-this.p[1]+((sqrt(2)-1)*groupWidth/2)*this.s/groupWidth)/(this.s*sqrt(2)))*(groupWidth*sqrt(2))*4;
-              var end = (floor((groupWidth*sqrt(2))*(waterLevel-this.p[1]+((sqrt(2)-1)*groupWidth/2)*this.s/groupWidth)/(this.s*sqrt(2)))+10)*(groupWidth*sqrt(2))*4;
+              crystalImagesCopyFrom[this.index].loadPixels();
+              var partAboveWater = (waterLevel - (this.p[1]+this.r*(1-sqrt(2))))/(this.s*sqrt(2));
+              var start = floor(partAboveWater * crystalImages[this.index].pixels.length/4)*4;
+              var end = crystalImages[index].pixels.length;
               var start2 = 0;
               var end2 = crystalImages[index].pixels.length;
-              for (var i = start2; i < end2; i+=4) {
-                if (i > start && i < end && !(crystalImages[this.index].pixels[i] === 0 && crystalImages[this.index].pixels[i+1] === 0 && crystalImages[this.index].pixels[i+2] === 0)) {
-                  crystalImages[this.index].pixels[i+3] = 255;
+              for (var i = start2; i < end2; i++) {
+                if (i > start && i < end) {
+                  crystalImages[this.index].pixels[i] = crystalImagesCopyFrom[this.index].pixels[i];
                 }
               }
               crystalImages[this.index].updatePixels();
               stroke(0,0,0);
               strokeWeight(4);
-              //line(this.p[0]-72,this.p[1]-72,this.p[0]-72+496,this.p[1]-72);
-              //console.log(this.p[0]);
               noStroke();
             }
-            //console.log(frameRate());
           } else if (this.type === 1 && waterLevel < this.p[1] + this.s*sqrt(2) && waterLevel > this.p[1]){
             if (this.theta === 0) {
               singleCrystalImages[this.index].loadPixels();
+              singleCrystalImagesCopyFrom[this.index].loadPixels();
               var start = floor(groupWidth*(waterLevel-this.p[1])/this.s)*groupWidth*4;
               var end = (floor(groupWidth*(waterLevel-this.p[1])/this.s)+10)*groupWidth*4;
               var start2 = 0;
               var end2 = singleCrystalImages[index].pixels.length;
-              for (var i = start2; i < end2; i+=4) {
-                if (i > start && i < end && !(singleCrystalImages[this.index].pixels[i] === 0 && singleCrystalImages[this.index].pixels[i+1] === 0 && singleCrystalImages[this.index].pixels[i+2] === 0)) {
-                  singleCrystalImages[this.index].pixels[i+3] = 255;
+              for (var i = start2; i < end2; i++) {
+                if (i > start && i < end) {
+                  singleCrystalImages[this.index].pixels[i] = singleCrystalImagesCopyFrom[this.index].pixels[i];
                 }
               }
               singleCrystalImages[this.index].updatePixels();
-              //console.log(this.p[0]);
             } else {
-              //console.log(singleCrystalImages[this.index].height);
               singleCrystalImages[this.index].loadPixels();
+              singleCrystalImagesCopyFrom[this.index].loadPixels();
               var start = floor((groupWidth*sqrt(2))*(waterLevel-this.p[1]+((sqrt(2)-1)*groupWidth/2)*this.s/groupWidth)/(this.s*sqrt(2)))*(groupWidth*sqrt(2))*4;
               var end = (floor((groupWidth*sqrt(2))*(waterLevel-this.p[1]+((sqrt(2)-1)*groupWidth/2)*this.s/groupWidth)/(this.s*sqrt(2)))+10)*(groupWidth*sqrt(2))*4;
               var start2 = 0;
               var end2 = singleCrystalImages[index].pixels.length;
               for (var i = start2; i < end2; i+=4) {
-                if (i > start && i < end && !(singleCrystalImages[this.index].pixels[i] === 0 && singleCrystalImages[this.index].pixels[i+1] === 0 && singleCrystalImages[this.index].pixels[i+2] === 0)) {
-                  singleCrystalImages[this.index].pixels[i+3] = 255;
+                if (i > start && i < end) {
+                  singleCrystalImages[this.index].pixels[i] = singleCrystalImagesCopyFrom[this.index].pixels[i];
                 }
               }
               singleCrystalImages[this.index].updatePixels();
               stroke(0,0,0);
               strokeWeight(4);
-              //line(this.p[0]-72,this.p[1]-72,this.p[0]-72+496,this.p[1]-72);
-              //console.log(this.p[0]);
               noStroke();
             }
-            //console.log(frameRate());
           }
         };
         crystalObject.drawIt = function() {
@@ -1474,7 +1458,6 @@ class CaveFloodCanvas extends React.Component {
             }
             rotate(-this.theta);
             if (this.type === 2) {
-              //console.log(crystalImages[this.index]);
               if (this.theta === 0) {
                 image(crystalImages[this.index],-this.r,-this.r,this.s,this.s);
               } else {
@@ -1482,7 +1465,6 @@ class CaveFloodCanvas extends React.Component {
               }
             }
             if (this.type === 1) {
-              //console.log(crystalImages[this.index]);
               if (this.theta === 0) {
                 image(singleCrystalImages[this.index],-this.r,-this.r,this.s,this.s);
               } else {
@@ -1544,7 +1526,6 @@ class CaveFloodCanvas extends React.Component {
       var numCrystals;
       var crystalOffset = 2;
       var openings = [];
-      //console.log(grid[90][20]);
 
       var xToIndex = function(x) {
         return floor((x+3000)/50);
@@ -1582,14 +1563,12 @@ class CaveFloodCanvas extends React.Component {
       };
 
       var checkGridIndex = function(startX,startY,width,height) {
-        //console.log(startX+", "+startY+", "+width+", "+height);
         //Returns true if this rectanglular region is empty, false if there's anything in it
         if (startY < 0 || startY+height >= 84 || startX < 0 || startX+width >= 120) {
           return false;
         }
         for (var i = startX; i < startX+width; i++) {
           for (var j = startY; j < startY+height; j++) {
-            //console.log(i+", "+j);
             if (grid[i][j] === 1) {
               return false;
             }
@@ -1604,10 +1583,8 @@ class CaveFloodCanvas extends React.Component {
         var tempY = yToIndex(startY);
         var tempWidth = floor(width/50);
         var tempHeight = floor(height/50);
-        //console.log(tempWidth);
         for (var i = tempX; i < tempX+tempWidth; i++) {
           for (var j = tempY; j < tempY+tempHeight; j++) {
-            //console.log(i+", "+j);
             grid[i][j] = 1;
           }
         }
@@ -1685,7 +1662,6 @@ class CaveFloodCanvas extends React.Component {
           if (randomVar < 0.25) {
             //capsule will go here
           } else {
-            //if (checkGrid(x+w-overlapGuess,y+pathWidth/2-circleR,circleR*2,circleR*2)) {
             if (checkGridIndex(xToIndex(x+w-overlapGuess)+1,yToIndex(y+pathWidth/2-circleR)-1,circleR*2/50+1,circleR*2/50+2)) {
               generateCircle(x+w-overlapGuess+circleR,y+pathWidth/2,"left");
             } else {
@@ -1696,7 +1672,6 @@ class CaveFloodCanvas extends React.Component {
           if (randomVar < 0.25) {
             //capsule will go here
           } else {
-            //if (checkGrid(x+overlapGuess-2*circleR,y+pathWidth/2-circleR,circleR*2,circleR*2)) {
             if (checkGridIndex(xToIndex(x+overlapGuess-2*circleR)-2,yToIndex(y+pathWidth/2)-1,circleR*2/50+1,circleR*2/50+2)) {
               generateCircle(x+overlapGuess-circleR,y+pathWidth/2,"right");
             } else {
@@ -1707,9 +1682,7 @@ class CaveFloodCanvas extends React.Component {
           if (randomVar < 0.25) {
             //capsule will go here
           } else {
-            //console.log(xToIndex(x+pathWidth/2-circleR)+","+(yToIndex(y+h-overlapGuess)+1)+","+floor(circleR*2/50)+","+floor(circleR*2/50));
             if (checkGridIndex(xToIndex(x+pathWidth/2-circleR)-1,yToIndex(y+h-overlapGuess)+1,floor(circleR*2/50)+2,floor(circleR*2/50)+1)) {
-            //if (checkGrid(x+pathWidth/2-circleR,y+h-overlapGuess,circleR*2,circleR*2)) {	
               generateCircle(x+pathWidth/2,y+h-overlapGuess+circleR,"above");
             } else {
               passages[passages.length-1].down = true;
@@ -1719,11 +1692,7 @@ class CaveFloodCanvas extends React.Component {
           if (randomVar < 0.25) {
             //capsule will go here
           } else {
-            //console.log(x+pathWidth/2-circleR);
-            //console.log(xToIndex(x+pathWidth/2-circleR)+", "+(yToIndex(y+overlapGuess-2*circleR)-1)+", "+(circleR*2/50)+", "+(circleR*2/50));
             if (checkGridIndex(xToIndex(x+pathWidth/2-circleR)-1,yToIndex(y+overlapGuess-2*circleR)-2,circleR*2/50+2,circleR*2/50+1)) {
-            //if (checkGrid(x+pathWidth/2-circleR,y+overlapGuess-2*circleR,circleR*2,circleR*2)) {
-              //console.log("hi");
               generateCircle(x+pathWidth/2,y+overlapGuess-circleR,"below");
             } else if (y !== 0){
               passages[passages.length-1].up = true;
@@ -1742,7 +1711,6 @@ class CaveFloodCanvas extends React.Component {
         if (random(0,1) > 0.25+y*0.0002 && cameFrom !== "left") {
           var i = xToIndex(x-circleR)-1;
           var yLevel = yToIndex(y-pathWidth/2);
-          //console.log(grid[i][yLevel]);
           while (i > 0 && i < 120 && i > xToIndex(x-circleR)-15 && grid[i][yLevel] === 0 && grid[i][yLevel+1] === 0) {
             i--;
           }
@@ -1755,7 +1723,6 @@ class CaveFloodCanvas extends React.Component {
         if (random(0,1) > 0.25+y*0.0002 && cameFrom !== "right") {
           var i = xToIndex(x+circleR)+1;
           var yLevel = yToIndex(y-pathWidth/2);
-          //console.log(grid[i][yLevel]);
           while (i > 0 && i < 120 && i < xToIndex(x+circleR)+15 && grid[i][yLevel] === 0 && grid[i][yLevel+1] === 0) {
             i++;
           }
@@ -1768,13 +1735,11 @@ class CaveFloodCanvas extends React.Component {
         if (random(0,1) > 0.2+y*0.0002 && cameFrom !== "below") {
           var i = yToIndex(y+circleR)+1;
           var xLevel = xToIndex(x-pathWidth/2);
-          //console.log(grid[i][yLevel]);
           while (i > 0 && i < 84 && i < yToIndex(y+circleR)+10 && grid[xLevel][i] === 0 && grid[xLevel+1][i] === 0) {
             i++;
           }
           if (i > yToIndex(y+circleR)+3) {
             i = ceil(random(yToIndex(y+circleR)+3,i));
-            //console.log((x-pathWidth/2)+","+(y+circleR-overlapGuess)+","+pathWidth+","+(indexToY(i-1)-(y+circleR)+2*overlapGuess));
             generatePassage(x-pathWidth/2,y+circleR-overlapGuess,pathWidth,indexToY(i-2)-(y+circleR)+2*overlapGuess,true,true,false,false,"above");
           }
         }
@@ -1782,7 +1747,6 @@ class CaveFloodCanvas extends React.Component {
         if (random(0,1) > 0.3+y*0.0002 && cameFrom !== "above") {
           var i = yToIndex(y-circleR)-1;
           var xLevel = xToIndex(x-pathWidth/2);
-          //console.log(grid[i][yLevel]);
           while (i > 0 && i < 84 && i > yToIndex(y-circleR)-10 && grid[xLevel][i] === 0 && grid[xLevel+1][i] === 0) {
             i--;
           }
@@ -1792,8 +1756,6 @@ class CaveFloodCanvas extends React.Component {
               openings.push([x-pathWidth/2,x+pathWidth/2]);
             } else {
               i = floor(i,random(yToIndex(y-circleR)-3));
-              //console.log((x-pathWidth/2)+","+(y+circleR-overlapGuess)+","+pathWidth+","+(indexToY(i-1)-(y+circleR)+2*overlapGuess));
-              //generatePassage(x-pathWidth/2,y+circleR-overlapGuess,pathWidth,indexToY(i-1)-(y+circleR)+2*overlapGuess,true,true,false,false,"above");
               generatePassage(x-pathWidth/2,indexToY(i+2)-overlapGuess,pathWidth,y-circleR-indexToY(i+2)+2*overlapGuess,true,true,false,false,"below");
             }
           }
@@ -1802,485 +1764,460 @@ class CaveFloodCanvas extends React.Component {
 
       
       var randomGen;
-  
-      p.setup = () => {
-          p.createCanvas(600,600);
-          noFill();
-          noStroke();
-          background(2, 130, 194); //pick a color
-          randomGen = getItem("randomGen");
-          if (randomGen == null) {
-            randomGen = false;
+      var state;
+      var inAnOpening;
+
+      var drawGame = function() {
+        angleMode(DEGREES);
+        if (timer === 0) {
+          startMin = minute();
+          startSec = second();
+        }
+        cutOut(mapCover,floor((-xTranslate+3000)/10),floor((-yTranslate)/10),60,60);
+        //Put code here
+        push();
+        translate(xTranslate,yTranslate);
+        background(130, 214, 237);
+        fill(99, 56, 35);
+        rect(-6000,0,20000,20000);
+        fill(91, 201, 94);
+        rect(-6000,-10,20000,10);
+        fill(130, 214, 237);
+        for (var i = 0; i < openings.length; i++) {
+          rect(openings[i][0],-10,openings[i][1]-openings[i][0],11);
+        }
+        //rect(0,-10,pathWidth,11);
+        //rect(1610,0,150,11);
+        //rect(425,0,150,11);
+        for (var i = 0; i < enclosures.length; i++) {
+          enclosures[i].drawIt();
+        }
+        for (var i = 0; i < passages.length; i++) {
+          passages[i].drawIt();
+        }
+        for (var i = 0; i < reverses.length; i++) {
+          reverses[i].drawIt();
+        }
+        for (var i = 0; i < crystals.length; i++) {
+          crystals[i].updateImage();
+        }
+        ball.drawIt(255);
+        if (yTranslate > -500) {
+          image(darkness2,-xTranslate,-100,1200,1500);
+        } else if (ball.fullySubmerged) {
+          image(waterDarkness, -xTranslate,-yTranslate,600,600);
+        } else {
+          image(darkness,ball.p[0]-600,ball.p[1]-600,1200,1200);
+        }
+        for (var i = 0; i < crystals.length; i++) {
+          crystals[i].drawIt();
+        }
+        ball.drawIt(15);
+        
+        if (ball.p[1] + ball.r/2 > waterLevel && ball.p[1] > -100) {
+          ball.inWater = true;
+          g = -0.1633;
+        } else {
+          ball.inWater = false;
+          g = 0.1633;
+          ball.rightForce = 0.05;
+          ball.leftForce = 0.05;
+        }
+        
+        ball.inAirMove();
+        
+        ball.resting = false;
+        ball.restingBottom = false;
+        ball.restingTop = false;
+        ball.inPassage = false;
+        for (var i = 0; i < passages.length; i++) {
+          passages[i].collide();
+        }
+        inAnOpening = false;
+        for (var i = 0; i < openings.length; i++) {
+          if (ball.p[0] > openings[i][0]+20 && ball.p[0] < openings[i][1]-20) {
+            inAnOpening = true;
           }
-          ranGen.on = randomGen;
+        }
+        if (!ball.inPassage) {
+          for (var i = 0; i < enclosures.length; i++) {
+            enclosures[i].collide();
+          }
+          for (var i = 0; i < reverses.length; i++) {
+            reverses[i].collide();
+          }
+          if (ball.p[1]+ball.r >= -10 && ball.p[1]+ball.r < 30 && !inAnOpening) {//bouncing off floor
+            ball.restingBottom = true;
+            var m = 0;
+            var b = -100;
+            var unitRamp = [1/sqrt(1+sq(this.m)),this.m/sqrt(1+sq(this.m))];
+            var unitPer = [this.m/sqrt(1+sq(this.m)),-1/sqrt(1+sq(this.m))];
+            var parallelVelocity = ball.e2*(ball.v[0] * unitRamp[0] + ball.v[1] * unitRamp[1]);
+            var perpendicularVelocity = -ball.e*sqrt(sq(ball.v[0])+sq(ball.v[1])-sq(parallelVelocity));
+            ball.v[0] = parallelVelocity*unitRamp[0] - perpendicularVelocity*unitRamp[1];
+            ball.v[1] = parallelVelocity*unitRamp[1] + perpendicularVelocity*unitRamp[0];
+            var theta = atan(this.m);
+            var aTotal = 0.1633*sin(theta);
+            if (ball.right) {
+              aTotal += ball.rightForce*ball.m*cos(theta);
+            }
+            if (ball.left) {
+              aTotal -= ball.leftForce*ball.m*cos(theta);
+            }
+            ball.a[0] = aTotal*unitRamp[0];
+            ball.a[1] = aTotal*unitRamp[1];
+          }
+        }
+        if (!ball.inWater && ball.restingBottom) {
+          ball.resting = true;
+        }
+        if (ball.inWater && ball.restingTop) {
+          ball.resting = true;
+        }
+        ball.move();
+        
+        for (var i = 0; i < crystals.length; i++) {
+          crystals[i].interact();
+        }
+        
+        xTranslate += xTranslateShifter;
+        yTranslate += yTranslateShifter;
+        if (ball.p[0] > width-50-xTranslate) {
+          xTranslateShifter = -abs(ceil(ball.v[0]));
+        } else if (ball.p[0] < 50-xTranslate) {
+          xTranslateShifter = abs(floor(ball.v[0]));
+        } else if (xTranslateShifter > 0) {
+          xTranslateShifter *= 0.5;
+        } else if (xTranslateShifter < 0) {
+          xTranslateShifter *= 0.5;
+        }
+        
+        if (ball.p[1] > height-50-yTranslate) {
+          yTranslateShifter = -abs(ceil(ball.v[1]));
+        } else if (ball.p[1] < 50-yTranslate) {
+          yTranslateShifter = abs(floor(ball.v[1]));
+        } else if (yTranslateShifter > 0) {
+          yTranslateShifter *= 0.7;
+        } else if (yTranslateShifter < 0) {
+          yTranslateShifter *= 0.7;
+        }
+
+        pop();
+        
+        if (waterLevel > 0) {
+          waterLevel --;
+        }
+        
+        timer++;
+        
           
-          if (randomGen) {
-            openings.push([0,pathWidth]);
-            generatePassage(0,0,pathWidth,400,true,true,false,false,"above");
+        fill(255);
+        textSize(20);
+        text('Score: '+ball.score,270,550);
+        
+        if (ball.p[1] < -20) {
+          state = "over";
+          timer = 0;
+          endMin = minute();
+          endSec = second();
+          totalMin = (endMin - startMin + 60) % 60;
+          totalSec = (endSec - startSec + 60) % 60;
+          if (endSec < startSec) {
+            totalMin--;
+          }
+          //Doesn't work around midnight
+        }
+        
+        if (mapsLeft > 0) {
+          toMap.update();
+          image(mapImage,510,15,75,58);
+          fill(255,255,255);
+          textSize(25);
+          text("x"+mapsLeft,557,75);
+          if (toMap.pressed) {
+            state = "map";
+            mapsLeft--;
+          }
+        } else {
+          image(greyMap,510,15,75,58);
+        }
+
+        keyIsReleased = false;
+      };
+
+      var gameOver = function() {
+        //fill(255,255,255,1);
+        fill(255,255,255,timer/2);
+        rect(0,0,width,height);
+        fill(3, 219, 252);
+        textSize(20);
+        text("Score: "+ball.score,270,320);
+        text("Time: "+totalMin+" minutes and "+totalSec+" seconds",150,350);
+        timer++;
+      };
+
+      var drawMap = function() {
+        background(0,0,0);
+        fill(214, 200, 178);
+        rect(0,44,600,512);
+        push();
+        scale(0.1);
+        //translate(2850,540);
+        translate(2850,440);
+        for (var i = 0; i < enclosures.length; i++) {
+          enclosures[i].drawIt();
+        }
+        for (var i = 0; i < passages.length; i++) {
+          passages[i].drawIt();
+        }
+        for (var i = 0; i < reverses.length; i++) {
+          reverses[i].drawIt();
+        }
+        for (var i = 0; i < crystals.length; i++) {
+          crystals[i].drawIt();
+        }
+        ball.mapDrawIt();
+        pop();
+        backMap.drawIt();
+        backMap.update();
+        image(mapCover,0,44,600,512);
+        if (backMap.pressed) {
+          state = "play";
+        }
+      };
+
+      var drawMenu = function() {
+        image(menu,0,0,600,600);
+        play.update();
+          how.update();
+          play.drawIt();
+          how.drawIt();
+          settingsButton.update();
+          if (settingsButton.hover) {
+            image(settingsHover,530,530,50,50);
           } else {
-            //All rotated crystals need their images replaced. Must be in setup, since createImage is used in rotateImage and createImage is a setup thing.
-            crystalImages[0] = rotateImage(crystalGroupWater,-110);
-            crystalImages[1] = rotateImage(crystalGroupWater,-30);
-            crystalImages[2] = rotateImage(crystalGroupWater,112);
-            crystalImages[3] = rotateImage(crystalGroupWater,180);
-            crystalImages[6] = rotateImage(crystalGroupWater,50);
-            crystalImages[7] = rotateImage(crystalGroupWater,172);
-            crystalImages[8] = rotateImage(crystalGroupWater,-10);
-            crystalImages[9] = rotateImage(crystalGroupWater,-90);
-            crystalImages[10] = rotateImage(crystalGroupWater,90);
-            crystalImages[11] = rotateImage(crystalGroupWater,-90);
-            crystalImages[13] = rotateImage(crystalGroupWater,40);
-            crystalImages[14] = rotateImage(crystalGroupWater,-25);
-            crystalImages[15] = rotateImage(crystalGroupWater,-150);
-            crystalImages[16] = rotateImage(crystalGroupWater,-100);
-            crystalImages[17] = rotateImage(crystalGroupWater,-20);
-            crystalImages[18] = rotateImage(crystalGroupWater,-90);
-            crystalImages[19] = rotateImage(crystalGroupWater,28);
-            crystalImages[20] = rotateImage(crystalGroupWater,-150);
-            crystalImages[22] = rotateImage(crystalGroupWater,-90);
-            
-            singleCrystalImages[1] = rotateImage(crystalWater,30);
-            singleCrystalImages[4] = rotateImage(crystalWater,-180);
-            singleCrystalImages[6] = rotateImage(crystalWater,180);
-            singleCrystalImages[8] = rotateImage(crystalWater,-70);
-            
-            enclosures = [newCircleEnclosure(75,510+100,230),newCircleEnclosure(75,1530+100,230),newCircleEnclosure(75,2630+100,230),
-              newCapsuleEnclosure(-500,3430+100,1000,450),newCircleEnclosure(-1600,3655+100,130),newCapsuleEnclosure(-2000,2030+100,800,600),
-              newCircleEnclosure(-2460,1050+100,180),newCircleEnclosure(-2460,3390+100,180),newCircleEnclosure(1685,3655+100,200),
-              newCapsuleEnclosure(1095,2207+100,1180,590),newCircleEnclosure(480,2502+100,150),newCapsuleEnclosure(405,2950+100,900,370),
-              newCapsuleEnclosure(1050,1156+100,1270,662),newCircleEnclosure(1685,750+100,150),newCircleEnclosure(1685,250+100,150),
-              newCircleEnclosure(500,750+100,150),newCircleEnclosure(500,250+100,150)];
-            reverses = [newReverseCircle(75,510+100,100),newReverseCircle(75,1530+100,100),newReverseCircle(75,2630+100,100),
-              newReverseCapsule(-250,3542+100,500,225),newReverseCapsule(-1825,2205+100,450,250),newReverseCircle(-2460,1050+100,80),
-              newReverseCircle(1685,3655+100,100),newReverseCapsule(1360,2402+100,650,200),newReverseCapsule(1368,1322+100,634,332),
-              newReverseCircle(1685,750+100,60),newReverseCircle(1685,250+100,60),newReverseCircle(500,750+100,60),
-              newReverseCircle(500,250+100,60)];
-            passages = [newPassage(0,-100+100,150,400,true,true,false,false,[]),newPassage(0,720+100,150,600,true,true,false,false,[]),
-              newPassage(0,1740+100,150,680,true,true,false,false,[['l', 2280+100, 2380+100]]),newPassage(0,2840+100,150,600,true,true,false,false,[['l',3100+100,3250+100]]),
-              newPassage(-1500,3580+100,790,150,false,false,true,true,[]),newPassage(-1650,2600+100,100,960,true,true,false,false,[['r',3100+100,3250+100]]),
-              newPassage(-1550,3100+100,1550,150,false,false,true,true,[]),newPassage(-920,2280+100,920,100,false,false,true,true,[]),
-              newPassage(-1650,1000+100,100,1030,true,true,true,false,[['l',1000+100,1100+100]]),newPassage(-2300,1000+100,650,100,false,false,true,true,[]),
-              newPassage(-2510,1220+100,100,2000,true,true,false,false,[]),newPassage(711,3580+100,790,150,false,false,true,true,[]),
-              newPassage(1610,2785+100,150,685,true,true,false,false,[]),newPassage(610,2427+100,200,150,false,false,true,true,[]),
-              newPassage(405,2632+100,150,320,true,true,false,false,[]),newPassage(1105,2780+100,150,170,true,true,false,false,[]),
-              newPassage(1610,1818+100,150,406,true,true,false,false,[]),newPassage(1610,879+100,150,276,true,true,false,false,[]),
-              newPassage(1610,380+100,150,240,true,true,false,false,[]),newPassage(1610,-100+100,150,220,true,true,false,false,[]),
-              newPassage(1815,675+100,936,150,false,false,true,true,[]),newPassage(2751,675+100,150,4000,true,true,true,true,[['l',675+100,825+100]]),
-              newPassage(630,675+100,925,150,false,false,true,true,[]),newPassage(425,-100+100,150,220,true,true,false,false,[]),
-              newPassage(425,380+100,150,240,true,true,false,false,[])];
-            crystals = [newCrystal(230,400+100,60,2,-110,0),newCrystal(-30,1390+100,70,2,-30,1),newCrystal(160,1550+100,50,2,112,2),
-              newCrystal(123,2000+100,70,1,0,0),newCrystal(120,2500+100,50,1,30,1),newCrystal(50,2730+100,55,2,180,3),
-              newCrystal(440,3800+100,80,2,0,4),newCrystal(-200,3485+100,60,2,0,5),newCrystal(-1590,3700+100,80,1,0,2),
-              newCrystal(-1000,3180+100,70,1,0,3),newCrystal(-2225,2475+100,80,2,50,6),newCrystal(-2550,875+100,65,2,172,7),newCrystal(-2400,1160+100,50,2,-10,8),
-              newCrystal(-2470,1760+100,60,2,-90,9),newCrystal(-2510,2260+100,50,2,90,10),newCrystal(-2465,2760+100,55,2,-90,11),
-              newCrystal(-2490,3490+100,80,2,0,12),newCrystal(-2580,3490+100,50,2,40,13),newCrystal(-2400,3480+100,60,2,-25,14),
-              newCrystal(-2445,3215+100,70,2,-150,15),newCrystal(-2615,3245+100,70,1,-180,4),newCrystal(-2340,3310+100,55,2,-100,16),
-              newCrystal(1735,3790+100,48,2,-20,17),newCrystal(1695,3090+100,70,2,-90,18),newCrystal(980,2712+100,75,2,28,19),
-              newCrystal(2255,2720+100,80,1,0,5),newCrystal(2325,2215+100,60,2,-150,20),newCrystal(350,2375+100,70,1,180,6),
-              newCrystal(800,3262+100,60,2,0,21),newCrystal(580,790+100,65,1,0,7),newCrystal(520,500+100,60,2,-90,22),newCrystal(1755,250+100,70,1,-70,8)];
+            image(settings,530,530,50,50);
+          }
+          if (play.pressed) {
+            state = "play";
+          }
+          if (how.pressed) {
+            state = "how";
+          }
+          if (settingsButton.pressed) {
+            state = "settings";
+          }
+      };
+
+      var drawClump = function(x, y) {
+          fill(82, 35, 12);
+          ellipse(336+x, 251+y, 102, 41);
+          ellipse(346+x, 264+y, 73, 37);
+          fill(112, 42, 14);
+          ellipse(335+x, 245+y, 40, 30);
+          triangle(315+x, 245+y, 355+x, 245+y, 335+x, 123+y);
+          fill(115, 59, 31);
+          ellipse(361+x, 258+y, 60, 40);
+          triangle(331+x, 258+y, 391+x, 258+y, 361+x, 176+y);
+          drawMushroom(326+x, 240+y, 1);
+          drawMushroom(346+x, 259+y, 0.7);
+      };
+
+      var drawMushroom = function(x, y, s) {
+          fill(135, 255, 161);
+          rect(x, y, 15*s, 25*s, 5);
+          arc(x+7.5*s, y + 5*s, 30*s, 30*s, 180, 360);
+      };
+
+      var drawHow = function() {
+          background(51, 22, 7);
+          /*push();
+          scale(1.5);
+          fill(15, 92, 140);
+          rect(0, 352, 400, 145);
+          drawClump(0, 109);*/
+          image(help,0,0,600,600);
+          fill(135, 255, 161);
+          textSize(32);
+          text("Move with the arrow keys. When in water, use the down arrow key to stop yourself from floating. Find crystals for extra points. While you're submerged in water, your torch is extinguished. Use the map to check where you are. It will fill in as you explore the caves.", 31, 32, 500, 500);
           
-            openings = [[0,150],[425,425+150],[1610,1610+150]];
+          backHow.drawIt();
+          backHow.update();
+          
+          if (backHow.pressed) {
+              state = "menu";
           }
+      };
 
-          var state = "menu";
-          var inAnOpening = false;
-
-          var game = function() {
-            angleMode(DEGREES);
-            if (timer === 0) {
-              startMin = minute();
-              startSec = second();
-            }
-            cutOut(mapCover,floor((-xTranslate+3000)/10),floor((-yTranslate)/10),60,60);
-            //Put code here
-            push();
-            translate(xTranslate,yTranslate);
-            background(130, 214, 237);
-            fill(99, 56, 35);
-            rect(-6000,0,20000,20000);
-            fill(91, 201, 94);
-            rect(-6000,-10,20000,10);
-            fill(130, 214, 237);
-            for (var i = 0; i < openings.length; i++) {
-              rect(openings[i][0],-10,openings[i][1]-openings[i][0],11);
-            }
-            //rect(0,-10,pathWidth,11);
-            //rect(1610,0,150,11);
-            //rect(425,0,150,11);
-            for (var i = 0; i < enclosures.length; i++) {
-              enclosures[i].drawIt();
-            }
-            for (var i = 0; i < passages.length; i++) {
-              passages[i].drawIt();
-            }
-            for (var i = 0; i < reverses.length; i++) {
-              reverses[i].drawIt();
-            }
-            for (var i = 0; i < crystals.length; i++) {
-              crystals[i].updateImage();
-            }
-            ball.drawIt(255);
-            if (yTranslate > -500) {
-              image(darkness2,-xTranslate,-100,1200,1500);
-            } else if (ball.fullySubmerged) {
-              image(waterDarkness, -xTranslate,-yTranslate,600,600);
-            } else {
-              image(darkness,ball.p[0]-600,ball.p[1]-600,1200,1200);
-            }
-            for (var i = 0; i < crystals.length; i++) {
-              crystals[i].drawIt();
-            }
-            ball.drawIt(15);
-            
-            /*fill(130,214,237);
-            rect(-5000,-1000,20000,900);
-            fill(91, 201, 94);
-            rect(-5000,-110,20000,10);
-            fill(130, 214, 237);
-            rect(250,-111,100,11);*/
-            
-            
-            //Lighting
-            /**var lightRadius = 100;
-            var leftX = ball.p[0]-lightRadius;
-            var upperY = ball.p[1]-lightRadius;
-            var rightX = ball.p[0]+lightRadius;
-            var lowerY = ball.p[1]+lightRadius;
-            
-            fill(0,0,0,150);
-            rect(0,0,10000,upperY);
-            rect(0,upperY,leftX,10000);
-            rect(rightX,upperY,10000,lightRadius*2);
-            rect(leftX,lowerY,10000,10000);
-            
-            //stroke(0,0,0,150);
-            //strokeWeight(1);
-            for (var i = 0; i < lightRadius; i++) {
-              for (var j = 0; j < lightRadius; j++) {
-                if (sqrt(sq(i-lightRadius)+sq(j-lightRadius)) > lightRadius) {
-                  point(i+leftX,j+upperY);
-                  point(rightX-i,j+upperY);
-                  point(rightX-i,lowerY-j);
-                  point(i+leftX,lowerY-j);
-                  rect(i+leftX,j+upperY,1,1);
-                  rect(rightX-i,j+upperY,1,1);
-                  rect(rightX-i,lowerY-j,1,1);
-                  rect(i+leftX,lowerY-j,1,1);
-                }
-              }
-            }
-            noStroke();**/
-            
-            if (ball.p[1] + ball.r/2 > waterLevel && ball.p[1] > -100) {
-              ball.inWater = true;
-              g = -0.1633;
-            } else {
-              ball.inWater = false;
-              g = 0.1633;
-              ball.rightForce = 0.05;
-              ball.leftForce = 0.05;
-            }
-            
-            ball.inAirMove();
-            
-            ball.resting = false;
-            ball.restingBottom = false;
-            ball.restingTop = false;
-            ball.inPassage = false;
-            for (var i = 0; i < passages.length; i++) {
-              passages[i].collide();
-            }
-            inAnOpening = false;
-            for (var i = 0; i < openings.length; i++) {
-              if (ball.p[0] > openings[i][0]+20 && ball.p[0] < openings[i][1]-20) {
-                inAnOpening = true;
-              }
-            }
-            if (!ball.inPassage) {
-              for (var i = 0; i < enclosures.length; i++) {
-                enclosures[i].collide();
-              }
-              for (var i = 0; i < reverses.length; i++) {
-                reverses[i].collide();
-              }
-              if (ball.p[1]+ball.r >= -10 && ball.p[1]+ball.r < 30 && !inAnOpening) {//bouncing off floor
-                ball.restingBottom = true;
-                this.m = 0;
-                this.b = -100;
-                var unitRamp = [1/sqrt(1+sq(this.m)),this.m/sqrt(1+sq(this.m))];
-                var unitPer = [this.m/sqrt(1+sq(this.m)),-1/sqrt(1+sq(this.m))];
-                var parallelVelocity = ball.e2*(ball.v[0] * unitRamp[0] + ball.v[1] * unitRamp[1]);
-                var perpendicularVelocity = -ball.e*sqrt(sq(ball.v[0])+sq(ball.v[1])-sq(parallelVelocity));
-                ball.v[0] = parallelVelocity*unitRamp[0] - perpendicularVelocity*unitRamp[1];
-                ball.v[1] = parallelVelocity*unitRamp[1] + perpendicularVelocity*unitRamp[0];
-                var theta = atan(this.m);
-                var aTotal = 0.1633*sin(theta);
-                if (ball.right) {
-                  aTotal += ball.rightForce*ball.m*cos(theta);
-                }
-                if (ball.left) {
-                  aTotal -= ball.leftForce*ball.m*cos(theta);
-                }
-                ball.a[0] = aTotal*unitRamp[0];
-                ball.a[1] = aTotal*unitRamp[1];
-              }
-            }
-            if (!ball.inWater && ball.restingBottom) {
-              ball.resting = true;
-            }
-            if (ball.inWater && ball.restingTop) {
-              ball.resting = true;
-            }
-            ball.move();
-            
-            for (var i = 0; i < crystals.length; i++) {
-              crystals[i].interact();
-            }
-            
-            xTranslate += xTranslateShifter;
-            yTranslate += yTranslateShifter;
-            if (ball.p[0] > width-50-xTranslate) {
-              xTranslateShifter = -abs(ceil(ball.v[0]));
-            } else if (ball.p[0] < 50-xTranslate) {
-              xTranslateShifter = abs(floor(ball.v[0]));
-            } else if (xTranslateShifter > 0) {
-              xTranslateShifter *= 0.5;
-            } else if (xTranslateShifter < 0) {
-              xTranslateShifter *= 0.5;
-            }
-            
-            if (ball.p[1] > height-50-yTranslate) {
-              yTranslateShifter = -abs(ceil(ball.v[1]));
-            } else if (ball.p[1] < 50-yTranslate) {
-              yTranslateShifter = abs(floor(ball.v[1]));
-            } else if (yTranslateShifter > 0) {
-              yTranslateShifter *= 0.7;
-            } else if (yTranslateShifter < 0) {
-              yTranslateShifter *= 0.7;
-            }
-
-            pop();
-            
-            if (waterLevel > 0) {
-              waterLevel --;
-            }
-            //console.log(ball.p[1]);
-            
-            timer++;
-            
-            //console.log(ball.p[1]);
-              
-            fill(255);
-            textSize(20);
-            text('Score: '+ball.score,270,550);
-            //console.log("Still playing");
-            
-            if (ball.p[1] < -20) {
-              //console.log("Done!");
-              //noLoop();
-              state = "over";
-              timer = 0;
-              endMin = minute();
-              endSec = second();
-              totalMin = (endMin - startMin + 60) % 60;
-              totalSec = (endSec - startSec + 60) % 60;
-              if (endSec < startSec) {
-                totalMin--;
-              }
-              //Doesn't work around midnight
-            }
-            
-            if (mapsLeft > 0) {
-              toMap.update();
-              image(mapImage,510,15,75,58);
-              fill(255,255,255);
-              textSize(25);
-              text("x"+mapsLeft,557,75);
-              if (toMap.pressed) {
-                state = "map";
-                mapsLeft--;
-              }
-            } else {
-              image(greyMap,510,15,75,58);
-            }
-
-            keyIsReleased = false;
-            if (timer % 10 === 0) {
-              //console.log(sqrt(sq(ball.v[0])+sq(ball.v[1])));
-            }
-            //mouseIsClicked = false;
-          };
-
-          var gameOver = function() {
-            //fill(255,255,255,1);
-            fill(255,255,255,timer/2);
-            rect(0,0,width,height);
-            fill(3, 219, 252);
-            textSize(20);
-            text("Score: "+ball.score,270,320);
-            text("Time: "+totalMin+" minutes and "+totalSec+" seconds",150,350);
-            timer++;
-          };
-
-          var drawMap = function() {
-            background(0,0,0);
-            fill(214, 200, 178);
-            rect(0,44,600,512);
-            push();
-            scale(0.1);
-            //translate(2850,540);
-            translate(2850,440);
-            for (var i = 0; i < enclosures.length; i++) {
-              enclosures[i].drawIt();
-            }
-            for (var i = 0; i < passages.length; i++) {
-              passages[i].drawIt();
-            }
-            for (var i = 0; i < reverses.length; i++) {
-              reverses[i].drawIt();
-            }
-            for (var i = 0; i < crystals.length; i++) {
-              crystals[i].drawIt();
-            }
-            ball.mapDrawIt();
-            pop();
-            backMap.drawIt();
-            backMap.update();
-            image(mapCover,0,44,600,512);
-            if (backMap.pressed) {
-              state = "play";
-            }
-          };
-
-          var drawMenu = function() {
-            image(menu,0,0,600,600);
-            play.update();
-              how.update();
-              play.drawIt();
-              how.drawIt();
-              settingsButton.update();
-              if (settingsButton.hover) {
-                image(settingsHover,530,530,50,50);
-              } else {
-                image(settings,530,530,50,50);
-              }
-              if (play.pressed) {
-                state = "play";
-              }
-              if (how.pressed) {
-                state = "how";
-              }
-              if (settingsButton.pressed) {
-                state = "settings";
-              }
-          };
-
-          var drawClump = function(x, y) {
-              fill(82, 35, 12);
-              ellipse(336+x, 251+y, 102, 41);
-              ellipse(346+x, 264+y, 73, 37);
-              fill(112, 42, 14);
-              ellipse(335+x, 245+y, 40, 30);
-              triangle(315+x, 245+y, 355+x, 245+y, 335+x, 123+y);
-              fill(115, 59, 31);
-              ellipse(361+x, 258+y, 60, 40);
-              triangle(331+x, 258+y, 391+x, 258+y, 361+x, 176+y);
-              drawMushroom(326+x, 240+y, 1);
-              drawMushroom(346+x, 259+y, 0.7);
-          };
-
-          var drawMushroom = function(x, y, s) {
-              fill(135, 255, 161);
-              rect(x, y, 15*s, 25*s, 5);
-              arc(x+7.5*s, y + 5*s, 30*s, 30*s, 180, 360);
-          };
-
-          var drawHow = function() {
-              background(51, 22, 7);
-              /*push();
-              scale(1.5);
-              fill(15, 92, 140);
-              rect(0, 352, 400, 145);
-              drawClump(0, 109);*/
-              image(help,0,0,600,600);
-              fill(135, 255, 161);
-              textSize(32);
-              text("Move with the arrow keys. When in water, use the down arrow key to stop yourself from floating. Find crystals for extra points. While you're submerged in water, your torch is extinguished. Use the map to check where you are. It will fill in as you explore the caves.", 31, 32, 500, 500);
-              
-              backHow.drawIt();
-              backHow.update();
-              
-              if (backHow.pressed) {
-                  state = "menu";
-              }
-          };
-
-          var drawSettings = function() {
-            image(help,0,0,600,600);
-              fill(135, 255, 161);
-              textSize(32);
-              text("Settings",240,45);
-              textSize(18);
-              //text("Reload for changes to take effect",200,450);
-              fill(255,255,255);
-              textSize(25);
-              text("Randomly generated map",50,100);
-              
-              backSettings.drawIt();
-              backSettings.update();
-              
-              ranGen.drawIt();
-              ranGen.update();
-              if (ranGen.pressed) {
-                //TODO: figure cookies
-              //if (typeof okayedCookie == 'undefined' || okayedCookie != "true") {
-                //alert("Please accept the use of cookies to use this feature.");
-                //ranGen.on = !ranGen.on;
-              //} else {
-                randomGen = !randomGen;
-                  storeItem("randomGen",randomGen);
-              //}
-              }
-              
-              if (backSettings.pressed) {
-                window.location.reload(); 
-              }
-          };
-
-          p.draw = () => {
-            pmouseX = p.pmouseX;
-            pmouseY = p.pmouseY;
-            mouseX = p.mouseX;
-            mouseY = p.mouseY;
-            width = p.width;
-            height = p.height;
-            mouseIsPressed = p.mouseIsPressed;
-            keyCode = p.keyCode;
-            if (state === "menu") {
-              drawMenu();
-            } else if (state === "how") {
-              drawHow();
-            } else if (state === "play") {
-              game();
-            } else if (state === "over") {
-              gameOver();
-            } else if (state === "map") {
-              drawMap();
-            } else if (state === "settings") {
-              drawSettings();
-            }
-            if (onAButton) {
-              cursor(HAND);
-            } else {
-              cursor(ARROW);
-            }
-            fill(0,0,0);
-            textSize(30);
-            //text(randomGen,50,50);
-            onAButton = false;
-            mouseIsClicked = false;
-            console.log(mouseX,mouseY);
+      var drawSettings = function() {
+        image(help,0,0,600,600);
+          fill(135, 255, 161);
+          textSize(32);
+          text("Settings",240,45);
+          textSize(18);
+          //text("Reload for changes to take effect",200,450);
+          fill(255,255,255);
+          textSize(25);
+          text("Randomly generated map",50,100);
+          
+          backSettings.drawIt();
+          backSettings.update();
+          
+          ranGen.drawIt();
+          ranGen.update();
+          if (ranGen.pressed) {
+            //TODO: figure cookies
+          //if (typeof okayedCookie == 'undefined' || okayedCookie != "true") {
+            //alert("Please accept the use of cookies to use this feature.");
+            //ranGen.on = !ranGen.on;
+          //} else {
+            randomGen = !randomGen;
+              storeItem("randomGen",randomGen);
+          //}
           }
+          
+          if (backSettings.pressed) {
+            window.location.reload(); 
+          }
+      };
+
+      var prepImgs = function() {
+        console.log("Prepping!");
+        crystalImagesCopyFrom[0] = rotateImage(crystalGroupWater,-110);
+        crystalImagesCopyFrom[1] = rotateImage(crystalGroupWater,-30);
+        crystalImagesCopyFrom[2] = rotateImage(crystalGroupWater,112);
+        crystalImagesCopyFrom[3] = rotateImage(crystalGroupWater,180);
+        crystalImagesCopyFrom[6] = rotateImage(crystalGroupWater,50);
+        crystalImagesCopyFrom[7] = rotateImage(crystalGroupWater,172);
+        crystalImagesCopyFrom[8] = rotateImage(crystalGroupWater,-10);
+        crystalImagesCopyFrom[9] = rotateImage(crystalGroupWater,-90);
+        crystalImagesCopyFrom[10] = rotateImage(crystalGroupWater,90);
+        crystalImagesCopyFrom[11] = rotateImage(crystalGroupWater,-90);
+        crystalImagesCopyFrom[13] = rotateImage(crystalGroupWater,40);
+        crystalImagesCopyFrom[14] = rotateImage(crystalGroupWater,-25);
+        crystalImagesCopyFrom[15] = rotateImage(crystalGroupWater,-150);
+        crystalImagesCopyFrom[16] = rotateImage(crystalGroupWater,-100);
+        crystalImagesCopyFrom[17] = rotateImage(crystalGroupWater,-20);
+        crystalImagesCopyFrom[18] = rotateImage(crystalGroupWater,-90);
+        crystalImagesCopyFrom[19] = rotateImage(crystalGroupWater,28);
+        crystalImagesCopyFrom[20] = rotateImage(crystalGroupWater,-150);
+        crystalImagesCopyFrom[22] = rotateImage(crystalGroupWater,-90);
+        
+        singleCrystalImagesCopyFrom[1] = rotateImage(crystalWater,30);
+        singleCrystalImagesCopyFrom[4] = rotateImage(crystalWater,-180);
+        singleCrystalImagesCopyFrom[6] = rotateImage(crystalWater,180);
+        singleCrystalImagesCopyFrom[8] = rotateImage(crystalWater,-70);
+
+        for (var i = 0; i <= 22; i++) {
+          crystalImages[i] = createImage(crystalImagesCopyFrom[i].width,crystalImagesCopyFrom[i].height);
+          crystalImages[i].loadPixels();
+          for (var j = 0; j < crystalImages[i].pixels.length; j++) {
+            crystalImages[i].pixels[j] = 0;
+          }
+          crystalImages[i].updatePixels();
+        }
+
+        for (var i = 0; i <= 8; i++) {
+          singleCrystalImages[i] = createImage(singleCrystalImagesCopyFrom[i].width,singleCrystalImagesCopyFrom[i].height);
+          singleCrystalImages[i].loadPixels();
+          for (var j = 0; j < singleCrystalImages[i].pixels.length; j++) {
+            singleCrystalImages[i].pixels[j] = 0;
+          }
+          singleCrystalImages[i].updatePixels();
+        }
+      };
+
+      p.setup = () => {
+        p.createCanvas(600,600);
+        noFill();
+        noStroke();
+        background(2, 130, 194); //pick a color
+        randomGen = getItem("randomGen");
+        if (randomGen == null) {
+          randomGen = false;
+        }
+        ranGen.on = randomGen;
+          
+        if (randomGen) {
+          openings.push([0,pathWidth]);
+          generatePassage(0,0,pathWidth,400,true,true,false,false,"above");
+        } else {
+          //All rotated crystals need their images replaced. Must be in setup, since createImage is used in rotateImage and createImage is a setup thing.
+          prepImgs();
+          
+          enclosures = [newCircleEnclosure(75,510+100,230),newCircleEnclosure(75,1530+100,230),newCircleEnclosure(75,2630+100,230),
+            newCapsuleEnclosure(-500,3430+100,1000,450),newCircleEnclosure(-1600,3655+100,130),newCapsuleEnclosure(-2000,2030+100,800,600),
+            newCircleEnclosure(-2460,1050+100,180),newCircleEnclosure(-2460,3390+100,180),newCircleEnclosure(1685,3655+100,200),
+            newCapsuleEnclosure(1095,2207+100,1180,590),newCircleEnclosure(480,2502+100,150),newCapsuleEnclosure(405,2950+100,900,370),
+            newCapsuleEnclosure(1050,1156+100,1270,662),newCircleEnclosure(1685,750+100,150),newCircleEnclosure(1685,250+100,150),
+            newCircleEnclosure(500,750+100,150),newCircleEnclosure(500,250+100,150)];
+          reverses = [newReverseCircle(75,510+100,100),newReverseCircle(75,1530+100,100),newReverseCircle(75,2630+100,100),
+            newReverseCapsule(-250,3542+100,500,225),newReverseCapsule(-1825,2205+100,450,250),newReverseCircle(-2460,1050+100,80),
+            newReverseCircle(1685,3655+100,100),newReverseCapsule(1360,2402+100,650,200),newReverseCapsule(1368,1322+100,634,332),
+            newReverseCircle(1685,750+100,60),newReverseCircle(1685,250+100,60),newReverseCircle(500,750+100,60),
+            newReverseCircle(500,250+100,60)];
+          passages = [newPassage(0,-100+100,150,400,true,true,false,false,[]),newPassage(0,720+100,150,600,true,true,false,false,[]),
+            newPassage(0,1740+100,150,680,true,true,false,false,[['l', 2280+100, 2380+100]]),newPassage(0,2840+100,150,600,true,true,false,false,[['l',3100+100,3250+100]]),
+            newPassage(-1500,3580+100,790,150,false,false,true,true,[]),newPassage(-1650,2600+100,100,960,true,true,false,false,[['r',3100+100,3250+100]]),
+            newPassage(-1550,3100+100,1550,150,false,false,true,true,[]),newPassage(-920,2280+100,920,100,false,false,true,true,[]),
+            newPassage(-1650,1000+100,100,1030,true,true,true,false,[['l',1000+100,1100+100]]),newPassage(-2300,1000+100,650,100,false,false,true,true,[]),
+            newPassage(-2510,1220+100,100,2000,true,true,false,false,[]),newPassage(711,3580+100,790,150,false,false,true,true,[]),
+            newPassage(1610,2785+100,150,685,true,true,false,false,[]),newPassage(610,2427+100,200,150,false,false,true,true,[]),
+            newPassage(405,2632+100,150,320,true,true,false,false,[]),newPassage(1105,2780+100,150,170,true,true,false,false,[]),
+            newPassage(1610,1818+100,150,406,true,true,false,false,[]),newPassage(1610,879+100,150,276,true,true,false,false,[]),
+            newPassage(1610,380+100,150,240,true,true,false,false,[]),newPassage(1610,-100+100,150,220,true,true,false,false,[]),
+            newPassage(1815,675+100,936,150,false,false,true,true,[]),newPassage(2751,675+100,150,4000,true,true,true,true,[['l',675+100,825+100]]),
+            newPassage(630,675+100,925,150,false,false,true,true,[]),newPassage(425,-100+100,150,220,true,true,false,false,[]),
+            newPassage(425,380+100,150,240,true,true,false,false,[])];
+          crystals = [newCrystal(230,400+100,60,2,-110,0),newCrystal(-30,1390+100,70,2,-30,1),newCrystal(160,1550+100,50,2,112,2),
+            newCrystal(123,2000+100,70,1,0,0),newCrystal(120,2500+100,50,1,30,1),newCrystal(50,2730+100,55,2,180,3),
+            newCrystal(440,3800+100,80,2,0,4),newCrystal(-200,3485+100,60,2,0,5),newCrystal(-1590,3700+100,80,1,0,2),
+            newCrystal(-1000,3180+100,70,1,0,3),newCrystal(-2225,2475+100,80,2,50,6),newCrystal(-2550,875+100,65,2,172,7),newCrystal(-2400,1160+100,50,2,-10,8),
+            newCrystal(-2470,1760+100,60,2,-90,9),newCrystal(-2510,2260+100,50,2,90,10),newCrystal(-2465,2760+100,55,2,-90,11),
+            newCrystal(-2490,3490+100,80,2,0,12),newCrystal(-2580,3490+100,50,2,40,13),newCrystal(-2400,3480+100,60,2,-25,14),
+            newCrystal(-2445,3215+100,70,2,-150,15),newCrystal(-2615,3245+100,70,1,-180,4),newCrystal(-2340,3310+100,55,2,-100,16),
+            newCrystal(1735,3790+100,48,2,-20,17),newCrystal(1695,3090+100,70,2,-90,18),newCrystal(980,2712+100,75,2,28,19),
+            newCrystal(2255,2720+100,80,1,0,5),newCrystal(2325,2215+100,60,2,-150,20),newCrystal(350,2375+100,70,1,180,6),
+            newCrystal(800,3262+100,60,2,0,21),newCrystal(580,790+100,65,1,0,7),newCrystal(520,500+100,60,2,-90,22),newCrystal(1755,250+100,70,1,-70,8)];
+        
+          openings = [[0,150],[425,425+150],[1610,1610+150]];
+          state = "menu";
+          inAnOpening = false;
+        }
+      };
+
+      p.draw = () => {
+        pmouseX = p.pmouseX;
+        pmouseY = p.pmouseY;
+        mouseX = p.mouseX;
+        mouseY = p.mouseY;
+        width = p.width;
+        height = p.height;
+        mouseIsPressed = p.mouseIsPressed;
+        keyCode = p.keyCode;
+        if (state === "menu") {
+          drawMenu();
+        } else if (state === "how") {
+          drawHow();
+        } else if (state === "play") {
+          drawGame();
+        } else if (state === "over") {
+          gameOver();
+        } else if (state === "map") {
+          drawMap();
+        } else if (state === "settings") {
+          drawSettings();
+        }
+        if (onAButton) {
+          cursor(HAND);
+        } else {
+          cursor(ARROW);
+        }
+        fill(0,0,0);
+        textSize(30);
+        //text(randomGen,50,50);
+        onAButton = false;
+        mouseIsClicked = false;
       }
     }
   

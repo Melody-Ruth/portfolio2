@@ -1,6 +1,7 @@
 import '../../App.css';
 import React, {Component} from 'react';
 import CaveFloodCanvas from './CaveFloodCanvas.jsx';
+import TestCanvas from './TestCanvas.jsx';
 import Typography from '@material-ui/core/Typography';
 import ChangeLogEntry from '../../components/ChangeLogEntry';
 import BasicFacts from '../../components/BasicFacts';
