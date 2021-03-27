@@ -312,7 +312,7 @@ class CaveFloodCanvas extends React.Component {
       var g = 0.1633;//Pull of gravity. I flip it when the ball is in water to simulate buoyancy overpowering gravity.
       var ballStartPos = [60,90];//Where the ball starts the game
       //Should start 60,3790
-      var waterLevel = 3000;//Starting water level
+      var waterLevel = 7000;//Starting water level
       var waterColor = [155, 151, 230];
       //var groundWaterColor = [89,169,194];
       var groundWaterColor = [20, 81, 130];
