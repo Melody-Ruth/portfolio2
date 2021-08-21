@@ -24,6 +24,7 @@ import bottomOut3 from '../graphics/bottom_out.png';
 import {useEffect} from 'react';
 
 import { createMuiTheme } from "@material-ui/core/styles";
+import { remove } from '../../resources/renamed_p5_library';
 
 const myTheme2 = createMuiTheme({
   palette: {
@@ -42,6 +43,9 @@ const myTheme2 = createMuiTheme({
   spacing: 8,
 });
 
+var myp5;
+var madeAPuzzle = false;
+
 const Puzzle = () => {
     var testingSource;
     var testNumber = 5;
@@ -52,6 +56,8 @@ const Puzzle = () => {
     var settingUp = false;
     var r;
     var c;
+    //const myp5;
+    const testVar = "hello world";
     const startSketch = (loadingSaved) => {
         var Sketch = function(p) {
             var mouseIsHeld = false;
@@ -855,6 +861,7 @@ const Puzzle = () => {
             }
             
             p.draw = function() {
+                console.log("In the puzzle draw function");
                 //p.background(2, 130, 194);
                 p.background(bgColor);
                 //p.fill(255);
@@ -949,7 +956,7 @@ const Puzzle = () => {
                     showY = canvasHeight/2-puzzleImage.height/2;
                     //mouseIsReleased = false;
                 }
-                
+                console.log(savePuzzle.pressed);
                 if (savePuzzle.pressed && currentlyMoving == -1) {
                     if (typeof okayedCookie == 'undefined' || okayedCookie != "true") {
                         alert("Please accept the use of cookies to use this feature.");
@@ -1011,7 +1018,6 @@ const Puzzle = () => {
                     newOne = false;
                 } else if (counter > 0 && settingUp) {//We aren't new anymore, and we're in the middle of setting up, which means time to leave
                     settingUp = false;
-                    p.remove();
                 } else if (settingUp) {//We must be the new one, since the counter is 0. There might still be an old one out there, so we can't stop setting up yet
                     newOne = true;
                 }
@@ -1028,7 +1034,8 @@ const Puzzle = () => {
                 mouseIsReleased = false;
             };
         };
-        var myp5 = new p5(Sketch);
+        myp5 = new p5(Sketch);
+        madeAPuzzle = true;
     }
     const handleSizeInput = () => {
         var rowsInput = document.getElementById("inputRows");
@@ -1103,7 +1110,12 @@ const Puzzle = () => {
     }
     useEffect(() => {
         setUp()
-        window.addEventListener('resize', handleResize);      
+        window.addEventListener('resize', handleResize);   
+        return () => {
+            if (madeAPuzzle) {
+                myp5.remove();
+            }
+        }   
         }, [])
     const setUp = () => {
         var imageInput = document.getElementById("toPuzzle");

@@ -8,6 +8,7 @@ import ArtStudio from './art_studio/ArtStudio.js';
 import Archery from './archery/Archery.js';
 import Gingerbread from './gingerbread/Gingerbread.js';
 import CaveFlood from './cave_flood/code/CaveFlood.jsx';
+import CaveFloodTest from './cave_flood/code/CaveFloodTest.jsx';
 import StarTours from './star_tours/StarTours.jsx';
 import Beanstalk from './beanstalk/Beanstalk.jsx';
 import Stipple from './stipple/Stipple.jsx';

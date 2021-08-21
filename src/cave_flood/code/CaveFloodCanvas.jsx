@@ -1527,6 +1527,8 @@ class CaveFloodCanvas extends React.Component {
       var crystalOffset = 2;
       var openings = [];
 
+      var didRandomGen = false;
+
       var xToIndex = function(x) {
         return floor((x+3000)/50);
       };
@@ -2139,8 +2141,13 @@ class CaveFloodCanvas extends React.Component {
         ranGen.on = randomGen;
           
         if (randomGen) {
-          openings.push([0,pathWidth]);
-          generatePassage(0,0,pathWidth,400,true,true,false,false,"above");
+          console.log("Hi!!");
+          //TODO: fix
+          randomGen = false;
+          storeItem("randomGen",false);
+          didRandomGen = true;
+          //openings.push([0,pathWidth]);
+          //generatePassage(0,0,pathWidth,400,true,true,false,false,"above");
         } else {
           //All rotated crystals need their images replaced. Must be in setup, since createImage is used in rotateImage and createImage is a setup thing.
           prepImgs();
@@ -2195,24 +2202,32 @@ class CaveFloodCanvas extends React.Component {
         height = p.height;
         mouseIsPressed = p.mouseIsPressed;
         keyCode = p.keyCode;
-        if (state === "menu") {
-          drawMenu();
-        } else if (state === "how") {
-          drawHow();
-        } else if (state === "play") {
-          drawGame();
-        } else if (state === "over") {
-          gameOver();
-        } else if (state === "map") {
-          drawMap();
-        } else if (state === "settings") {
-          drawSettings();
-        }
-        if (onAButton) {
-          cursor(HAND);
+        if (!didRandomGen) {
+          if (state === "menu") {
+            drawMenu();
+          } else if (state === "how") {
+            drawHow();
+          } else if (state === "play") {
+            drawGame();
+          } else if (state === "over") {
+            gameOver();
+          } else if (state === "map") {
+            drawMap();
+          } else if (state === "settings") {
+            drawSettings();
+          }
+          if (onAButton) {
+            cursor(HAND);
+          } else {
+            cursor(ARROW);
+          }
         } else {
-          cursor(ARROW);
+          background(255,255,255);
+          fill(0,0,0);
+          textSize(25);
+          text("Random generation currently \ndisabled. Reload to play the \ndefault map.",80,100,360,300);
         }
+        
         fill(0,0,0);
         textSize(30);
         //text(randomGen,50,50);
