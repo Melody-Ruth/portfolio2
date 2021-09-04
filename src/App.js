@@ -16,6 +16,7 @@ import Puzzle from './puzzle/code/Puzzle';
 import { ThemeProvider } from "@material-ui/styles";
 import myTheme from './components/myTheme';
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import CookieFooter from './components/CookieFooter';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/portfolio2/Stipple" exact component={Stipple} />
         </div>
         <Footer/>
+        <CookieFooter myTheme/>
 		  </div>
     </div>
 	</Router>

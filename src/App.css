@@ -310,3 +310,19 @@ body,
 #canvas1 {
   margin: 30px;
 }
+
+#cookieDiv {
+	position:fixed;
+	width:100%;
+	bottom:0px;
+	left:0px;
+  display:flex;
+  justify-content: center;
+}
+
+#innerCookieDiv {
+  padding: 1.5em;
+  min-width: 70%;
+  display:flex;
+  justify-content: space-around;
+}
