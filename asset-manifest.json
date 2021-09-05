@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/portfolio2/static/css/main.9ae563a0.chunk.css",
-    "main.js": "/portfolio2/static/js/main.cc882d94.chunk.js",
-    "main.js.map": "/portfolio2/static/js/main.cc882d94.chunk.js.map",
-    "runtime-main.js": "/portfolio2/static/js/runtime-main.3d20edb7.js",
-    "runtime-main.js.map": "/portfolio2/static/js/runtime-main.3d20edb7.js.map",
-    "static/js/2.60258ca0.chunk.js": "/portfolio2/static/js/2.60258ca0.chunk.js",
-    "static/js/2.60258ca0.chunk.js.map": "/portfolio2/static/js/2.60258ca0.chunk.js.map",
-    "static/js/3.c17d74f2.chunk.js": "/portfolio2/static/js/3.c17d74f2.chunk.js",
-    "static/js/3.c17d74f2.chunk.js.map": "/portfolio2/static/js/3.c17d74f2.chunk.js.map",
+    "main.css": "/portfolio2/static/css/main.5385721b.chunk.css",
+    "main.js": "/portfolio2/static/js/main.d71c8b87.chunk.js",
+    "main.js.map": "/portfolio2/static/js/main.d71c8b87.chunk.js.map",
+    "runtime-main.js": "/portfolio2/static/js/runtime-main.81568b0e.js",
+    "runtime-main.js.map": "/portfolio2/static/js/runtime-main.81568b0e.js.map",
+    "static/js/2.c88c234d.chunk.js": "/portfolio2/static/js/2.c88c234d.chunk.js",
+    "static/js/2.c88c234d.chunk.js.map": "/portfolio2/static/js/2.c88c234d.chunk.js.map",
+    "static/js/3.aa3663eb.chunk.js": "/portfolio2/static/js/3.aa3663eb.chunk.js",
+    "static/js/3.aa3663eb.chunk.js.map": "/portfolio2/static/js/3.aa3663eb.chunk.js.map",
     "index.html": "/portfolio2/index.html",
-    "static/css/main.9ae563a0.chunk.css.map": "/portfolio2/static/css/main.9ae563a0.chunk.css.map",
-    "static/js/2.60258ca0.chunk.js.LICENSE.txt": "/portfolio2/static/js/2.60258ca0.chunk.js.LICENSE.txt",
+    "static/css/main.5385721b.chunk.css.map": "/portfolio2/static/css/main.5385721b.chunk.css.map",
+    "static/js/2.c88c234d.chunk.js.LICENSE.txt": "/portfolio2/static/js/2.c88c234d.chunk.js.LICENSE.txt",
     "static/media/Art_Studio_Thumbnail4.e920f06e.png": "/portfolio2/static/media/Art_Studio_Thumbnail4.e920f06e.png",
     "static/media/archery_thumbnail.a8d03761.png": "/portfolio2/static/media/archery_thumbnail.a8d03761.png",
     "static/media/beanstalk_thumbnail.ce5d2734.png": "/portfolio2/static/media/beanstalk_thumbnail.ce5d2734.png",
@@ -36,9 +36,9 @@
     "static/media/water_group.2a51ed40.png": "/portfolio2/static/media/water_group.2a51ed40.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.3d20edb7.js",
-    "static/js/2.60258ca0.chunk.js",
-    "static/css/main.9ae563a0.chunk.css",
-    "static/js/main.cc882d94.chunk.js"
+    "static/js/runtime-main.81568b0e.js",
+    "static/js/2.c88c234d.chunk.js",
+    "static/css/main.5385721b.chunk.css",
+    "static/js/main.d71c8b87.chunk.js"
   ]
 }
