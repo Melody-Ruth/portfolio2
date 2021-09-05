@@ -1,0 +1,27 @@
+#form {
+    min-height: 50vh;
+    min-width: 30vw;
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+}
+
+#mainContainer {
+    display: flex;
+    justify-content: space-around;
+    padding: 2%;
+}
+
+#info {
+    padding: 2em;
+    padding-left: 3em;
+}
+
+#submitButton {
+    width:fit-content;
+}
+
+#submitDiv {
+    display: flex;
+    justify-content: center;
+}

@@ -45,12 +45,12 @@ const About = ({}) => {
             <Typography variant="h7" className={classes.myText}>
               Hi, my name is Melody Ruth. I'm a computer science student at UC San Diego. I'm particularly interested in graphics, machine learning, and web development.
               I have developed these interests through research, personal projects, and classwork.
-              You can find more about my experience on my <a href="https://www.linkedin.com/in/melodyruth/" target="_blank">Linkedin</a>.
+              Find out more about me on my <a href="https://www.linkedin.com/in/melodyruth/" target="_blank">Linkedin</a>.
             </Typography>
 
             <Typography variant="h7" className={classes.myText}>
               I created this website to showcase my personal projects. I built it with HTML, CSS, JavaScript, React, and Material UI.
-              You can find the code for it <a href="https://github.com/Melody-Ruth/portfolio2" target="_blank">here</a>.
+              The code for it is <a href="https://github.com/Melody-Ruth/portfolio2" target="_blank">here</a>.
             </Typography>
         </div>
     </div>

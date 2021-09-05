@@ -17,7 +17,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import myTheme from './components/myTheme';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import CookieFooter from './components/CookieFooter';
-import Contact from './components/Contact';
+import Contact from './components/Contact2';
 import CookieInfo from './components/CookieInfo';
 import Credits from './components/Credits';
 
