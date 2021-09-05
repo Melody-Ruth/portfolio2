@@ -22,7 +22,7 @@ import bottomOutImg from '../graphics/bottom_out.png';
 import bottomOut2 from '../graphics/bottom_out.png';
 import bottomOut3 from '../graphics/bottom_out.png';
 import {useEffect} from 'react';
-//import {checkCookiesEnabled} from '../../scripts.js';
+import {checkCookiesEnabled} from '../../scripts.js';
 
 import { createTheme } from "@material-ui/core/styles";
 import { remove } from '../../resources/renamed_p5_library';
@@ -145,7 +145,6 @@ const Puzzle = () => {
                 button.hover = false;
                 button.pressed = false;
                 button.drawIt = function() {
-                    console.log("draw it 1");
                     p.stroke(255, 255, 255, 200);
                     p.strokeWeight(this.h/10);
                     if (this.hover) {
@@ -153,19 +152,12 @@ const Puzzle = () => {
                     } else {
                         p.noFill();
                     }
-                    console.log("draw it 2");
                     p.rect(this.x, this.y, this.w, this.h, 10);
                     p.noStroke();
                     p.fill(255, 255, 255, 200);
-                    console.log("draw it 2.2");
                     p.textSize(canvasWidth*canvasHeight/36420);
-                    console.log("draw it 2.3");
                     p.textAlign(p.CENTER,p.CENTER);
-                    console.log("draw it 2.5");
-                    console.log(this.words);
-                    console.log(this.x);
                     p.text(this.words, this.x, this.y,this.w,this.h);
-                    console.log("draw it 3");
                 };
                 button.update = function() {
                     this.pressed = false;
@@ -193,7 +185,6 @@ const Puzzle = () => {
                 piece.groupIndex = -1;
                 piece.movedTimer = 0;
                 piece.xSpeed = (x-canvasWidth/2)/beginningTime;
-                //console.log(piece.x-canvasWidth/2);
                 piece.ySpeed = (y-canvasHeight/2)/beginningTime;
                 if (index % c != 0) {
                     piece.leftIndex = index-1;
@@ -206,12 +197,9 @@ const Puzzle = () => {
                     piece.topIndex = -1;
                 }
                 piece.leftDone = false;
-                //piece.rightDone = false;
                 piece.topDone = false;
-                //piece.bottomDone = false;
                 piece.drawIt = function() {
                     p.image(pieceImages[this.index],this.x-pieceImageTallW/2,this.y-pieceImageWideH/2);
-                    //console.log(this.x,this.y);
                 };
                 piece.setPosition = function(newX, newY) {
                     this.x = newX;
@@ -280,7 +268,6 @@ const Puzzle = () => {
                                 groups[nextGroup] = newGroup(nextGroup, [this.index, this.leftIndex]);
                                 this.groupIndex = nextGroup;
                                 pieces[this.leftIndex].groupIndex = nextGroup;
-                                //console.log(groups[nextGroup]);
                                 nextGroup++;
                                 this.x = pieces[this.leftIndex].x+pieceW;
                                 this.y = pieces[this.leftIndex].y;
@@ -316,7 +303,6 @@ const Puzzle = () => {
                                 groups[nextGroup] = newGroup(nextGroup, [this.index, this.topIndex]);
                                 this.groupIndex = nextGroup;
                                 pieces[this.topIndex].groupIndex = nextGroup;
-                                //console.log(groups[nextGroup]);
                                 nextGroup++;
                                 this.x = pieces[this.topIndex].x;
                                 this.y = pieces[this.topIndex].y+pieceH;
@@ -433,8 +419,8 @@ const Puzzle = () => {
             //TODO: add cookie acceptance
             var okayedCookie;
             p.setup = function() {
-                //okayedCookie = checkCookiesEnabled();
-                okayedCookie = "true";
+                okayedCookie = checkCookiesEnabled();
+                //okayedCookie = "true";
                 p.angleMode(p.DEGREES);
                 canvasWidth = 800;
                 canvasWidth = Math.round(windowWidth*.95);
@@ -858,7 +844,6 @@ const Puzzle = () => {
                 }
                 
                 for (var i = 0; i < 400; i++) {
-                    //console.log(canvasWidth);
                     confettiArray[i] = newConfettiPiece(myRandom(-canvasWidth/2,canvasWidth*3/2),
                     myRandom(-800,200),300+i*2,myRandom(20,40),myRandom(10,20),myRandom(0,255),myRandom(0,255),myRandom(0,255),myRandom(0.01,0.08));
                 }
@@ -867,7 +852,6 @@ const Puzzle = () => {
             p.mouseReleased = function() {
                 mouseIsReleased = true;
                 mouseIsHeld = false;
-                //console.log("done");
             }
             
             p.draw = function() {
@@ -900,7 +884,6 @@ const Puzzle = () => {
                         if (!foundGroup) {
                             currentlyMovingGroup = -2;
                         }
-                        //console.log(pieces[0].moving+" "+pieces[1].moving);
                         for (var i = 0; i < pieces.length; i++) {
                             pieces[i].moveIt();
                         }
@@ -909,10 +892,7 @@ const Puzzle = () => {
                         }
                     }
                 }
-                console.log("In the puzzle draw function 2");
                 if (won) {
-                    //console.log("Yes!");
-                    //p.text("Congratulations! You finished the puzzle!", canvasWidth/2,canvasHeight/2);
                     for (var i = 0; i < confettiArray.length; i++) {
                         confettiArray[i].moveIt();
                         confettiArray[i].rotate();
@@ -921,8 +901,6 @@ const Puzzle = () => {
                     }
                     if (counter < wonTime+1000) {
                         p.textSize(canvasWidth*0.05789);
-                        //console.log(canvasWidth);
-                        //console.log(p.mouseX,p.mouseY);
                         //Text will be 0.41606*canvasWidth wide
                         p.fill(255);
                         p.textAlign(p.CENTER,p.CENTER);
@@ -930,7 +908,6 @@ const Puzzle = () => {
                     }
                 }
                 
-                //console.log(mouseIsReleased);
                 
                 if (showingGoal) {
                     p.fill(200,200,200,120);
@@ -951,14 +928,10 @@ const Puzzle = () => {
                     
                     if (mouseIsReleased && (p.mouseX < showX || p.mouseX > showX+puzzleImage.width || p.mouseY < showY || p.mouseY > showY+puzzleImage.height)) {
                         showingGoal = false;
-                        //console.log("hi");
                     }
                 }
-                console.log("In the puzzle draw function 2.5");
                 showImage.update();
-                console.log("In the puzzle draw function 3");
                 showImage.drawIt();
-                console.log("In the puzzle draw function 3.5");
                 savePuzzle.update();
                 savePuzzle.drawIt();
                 
@@ -966,10 +939,9 @@ const Puzzle = () => {
                     showingGoal = true;
                     showX = canvasWidth/2-puzzleImage.width/2;
                     showY = canvasHeight/2-puzzleImage.height/2;
-                    //mouseIsReleased = false;
                 }
-                console.log(savePuzzle.pressed);
                 if (savePuzzle.pressed && currentlyMoving == -1) {
+                    okayedCookie = checkCookiesEnabled();
                     if (typeof okayedCookie == 'undefined' || okayedCookie != "true") {
                         alert("Please accept the use of cookies to use this feature.");
                     } else {
@@ -988,7 +960,6 @@ const Puzzle = () => {
                             alert("Saved successfully! To load this puzzle, press load saved puzzle.")
                         }
                         catch (e) {
-                            //console.log("nope. Not happening")
                             alert("Image too large to store. To load this puzzle, upload your image again, then press load saved puzzle.");
                             imageTooLarge = true;
                         }
@@ -1014,17 +985,12 @@ const Puzzle = () => {
                         //mouseIsReleased = false;
                     }
                 }
-                console.log("In the puzzle draw function 4");
                 
                 if (onAButton) {
                     p.cursor(p.HAND);
                 } else {
                     p.cursor(p.ARROW);
                 }
-                
-                /*for (var i = 0; i < pieceImages.length; i++) {
-                    p.image(pieceImages[i], 10+(i%c)*(pieceW+120),20+Math.floor(i/c)*(pieceH+120));
-                }*/
                 
                 if (counter > 0 && settingUp && newOne) {//We are the newly made sketch, and we've already setup
                     settingUp = false;
@@ -1039,13 +1005,9 @@ const Puzzle = () => {
                     newOne = false;
                 }
                 
-                //console.log(showImage.pressed,showingGoal);
-                
                 counter++;
-                //console.log(mouseIsHeld);
                 onAButton = false;
                 mouseIsReleased = false;
-                console.log("In the puzzle draw function 5");
             };
         };
         myp5 = new p5(Sketch);
@@ -1132,7 +1094,6 @@ const Puzzle = () => {
         }   
         }, [])
     const setUp = () => {
-        //console.log(checkCookiesEnabled());
         var imageInput = document.getElementById("toPuzzle");
         if (imageInput && imageInput.value) {
             handleImageUpload();
