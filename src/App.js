@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useState } from 'react';
 import NavBar from './components/NavBar.js';
 import About from './components/About.js';
 import Projects from './components/projects.js';
@@ -17,31 +17,42 @@ import { ThemeProvider } from "@material-ui/styles";
 import myTheme from './components/myTheme';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import CookieFooter from './components/CookieFooter';
+import Contact from './components/Contact';
+
+/*export const CookieContext = React.createContext({
+  okayedCookies: "false",
+  setCookies: () => {}
+});*/
+
+//need to add provider if reenabling context
 
 function App() {
+  //const [okayedCookies, setCookies] = useState("false");
+  //const cookieValue = { okayedCookies, setCookies };
   return (
     <ThemeProvider theme={myTheme}>
-    <Router>
-		<div className="App" >
-      <div className="mainContainer">
-        <NavBar/>
-        <div className="content">
-          <Route path="/portfolio2/" exact component={Projects} />
-          <Route path="/portfolio2/about" exact component={About} />
-          <Route path="/portfolio2/Art-Studio" exact component={ArtStudio} />
-          <Route path="/portfolio2/Gingerbread" exact component={Gingerbread} />
-          <Route path="/portfolio2/Archery" exact component={Archery} />
-          <Route path="/portfolio2/Star-Tours" exact component={StarTours} />
-          <Route path="/portfolio2/Cave-Flood" exact component={CaveFlood} />
-          <Route path="/portfolio2/Beanstalk" exact component={Beanstalk} />
-          <Route path="/portfolio2/Puzzle" exact component={Puzzle} />
-          <Route path="/portfolio2/Stipple" exact component={Stipple} />
+      <Router>
+      <div className="App" >
+        <div className="mainContainer">
+          <NavBar/>
+          <div className="content">
+            <Route path="/portfolio2/" exact component={Projects} />
+            <Route path="/portfolio2/about" exact component={About} />
+            <Route path="/portfolio2/contact" exact component={Contact} />
+            <Route path="/portfolio2/Art-Studio" exact component={ArtStudio} />
+            <Route path="/portfolio2/Gingerbread" exact component={Gingerbread} />
+            <Route path="/portfolio2/Archery" exact component={Archery} />
+            <Route path="/portfolio2/Star-Tours" exact component={StarTours} />
+            <Route path="/portfolio2/Cave-Flood" exact component={CaveFlood} />
+            <Route path="/portfolio2/Beanstalk" exact component={Beanstalk} />
+            <Route path="/portfolio2/Puzzle" exact component={Puzzle} />
+            <Route path="/portfolio2/Stipple" exact component={Stipple} />
+          </div>
+          <Footer/>
+          <CookieFooter/>
         </div>
-        <Footer/>
-        <CookieFooter myTheme/>
-		  </div>
-    </div>
-	</Router>
+      </div>
+    </Router>
   </ThemeProvider>
   );
 }
