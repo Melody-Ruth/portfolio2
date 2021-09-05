@@ -5,6 +5,7 @@ import Box from '@material-ui/core/Box';
 import { alpha } from '@material-ui/core/styles';
 import { useTheme } from '@material-ui/core/styles';
 import { CookieContext } from '../App';
+import { Link } from 'react-router-dom';
 
 const CookieFooter = () => {
     const theme = useTheme();
@@ -39,8 +40,8 @@ const CookieFooter = () => {
             {!(okayedCookies == "true") && 
             <div id="innerCookieDiv">
             <p class = "text cookieTextThings" id="cookiesText">This website uses cookies to keep of track of user settings and allow users to save their progress in certain games.</p>
-            <Button variant="contained" color="primary" className="cookieButton">Learn More</Button>
-            <Button variant="contained" color="primary" className="cookieButton" onClick={checkCookies}>Accept</Button>
+            <Button variant="contained" color="primary" component={Link} to={'/portfolio2/cookies'}>Learn More</Button>
+            <Button variant="contained" color="primary" onClick={checkCookies}>Accept</Button>
             </div>
             }
         </Box>

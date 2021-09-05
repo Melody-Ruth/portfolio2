@@ -8,6 +8,7 @@ import React from 'react';
 import myTheme from "./myTheme.js";
 import GitHub from "../images/github.png";
 import LinkedIn from "../images/linkedin.png";
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
     myToolBar: {
@@ -31,12 +32,12 @@ const Footer = ({}) => {
         </div>
         <div id="bottomNav">
             <div className="bottomNavCol">
-                <Button color="inherit" className="footerButton">Portfolio</Button>
-                <Button color="inherit" className="footerButton">About</Button>
+                <Button color="inherit" className="footerButton" component={Link} to={'/portfolio2/'}>Portfolio</Button>
+                <Button color="inherit" className="footerButton" component={Link} to={'/portfolio2/about'}>About</Button>
             </div>
             <div className="bottomNavCol">
-                <Button color="inherit" className="footerButton">Contact</Button>
-                <Button color="inherit" className="footerButton">Cookies</Button>
+                <Button color="inherit" className="footerButton" component={Link} to={'/portfolio2/contact'}>Contact</Button>
+                <Button color="inherit" className="footerButton" component={Link} to={'/portfolio2/cookies'}>Cookies</Button>
             </div>
         </div>
         <div id="nameSocials">

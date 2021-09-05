@@ -31,8 +31,8 @@ const NavBar = ({}) => {
               Melody Ruth
             </Typography>
             <div className={classes.navButtons}>
-            <Button color="inherit"  component={Link} to={'/portfolio2/'}>Portfolio</Button>
-            <Button color="inherit"  component={Link} to={'/portfolio2/about'}>About</Button>
+            <Button color="inherit" component={Link} to={'/portfolio2/'}>Portfolio</Button>
+            <Button color="inherit" component={Link} to={'/portfolio2/about'}>About</Button>
             <Button color="inherit" component={Link} to={'/portfolio2/contact'}>Contact</Button>
             </div>
         </Toolbar>
