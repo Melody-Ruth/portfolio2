@@ -22,11 +22,12 @@ import bottomOutImg from '../graphics/bottom_out.png';
 import bottomOut2 from '../graphics/bottom_out.png';
 import bottomOut3 from '../graphics/bottom_out.png';
 import {useEffect} from 'react';
+//import {checkCookiesEnabled} from '../../scripts.js';
 
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 import { remove } from '../../resources/renamed_p5_library';
 
-const myTheme2 = createMuiTheme({
+const myTheme2 = createTheme({
   palette: {
     primary: {
       // light: will be calculated from palette.primary.main,
@@ -144,6 +145,7 @@ const Puzzle = () => {
                 button.hover = false;
                 button.pressed = false;
                 button.drawIt = function() {
+                    console.log("draw it 1");
                     p.stroke(255, 255, 255, 200);
                     p.strokeWeight(this.h/10);
                     if (this.hover) {
@@ -151,12 +153,19 @@ const Puzzle = () => {
                     } else {
                         p.noFill();
                     }
+                    console.log("draw it 2");
                     p.rect(this.x, this.y, this.w, this.h, 10);
                     p.noStroke();
                     p.fill(255, 255, 255, 200);
+                    console.log("draw it 2.2");
                     p.textSize(canvasWidth*canvasHeight/36420);
+                    console.log("draw it 2.3");
                     p.textAlign(p.CENTER,p.CENTER);
+                    console.log("draw it 2.5");
+                    console.log(this.words);
+                    console.log(this.x);
                     p.text(this.words, this.x, this.y,this.w,this.h);
+                    console.log("draw it 3");
                 };
                 button.update = function() {
                     this.pressed = false;
@@ -424,6 +433,7 @@ const Puzzle = () => {
             //TODO: add cookie acceptance
             var okayedCookie;
             p.setup = function() {
+                //okayedCookie = checkCookiesEnabled();
                 okayedCookie = "true";
                 p.angleMode(p.DEGREES);
                 canvasWidth = 800;
@@ -899,6 +909,7 @@ const Puzzle = () => {
                         }
                     }
                 }
+                console.log("In the puzzle draw function 2");
                 if (won) {
                     //console.log("Yes!");
                     //p.text("Congratulations! You finished the puzzle!", canvasWidth/2,canvasHeight/2);
@@ -943,10 +954,11 @@ const Puzzle = () => {
                         //console.log("hi");
                     }
                 }
-                
+                console.log("In the puzzle draw function 2.5");
                 showImage.update();
+                console.log("In the puzzle draw function 3");
                 showImage.drawIt();
-                
+                console.log("In the puzzle draw function 3.5");
                 savePuzzle.update();
                 savePuzzle.drawIt();
                 
@@ -1002,6 +1014,7 @@ const Puzzle = () => {
                         //mouseIsReleased = false;
                     }
                 }
+                console.log("In the puzzle draw function 4");
                 
                 if (onAButton) {
                     p.cursor(p.HAND);
@@ -1032,6 +1045,7 @@ const Puzzle = () => {
                 //console.log(mouseIsHeld);
                 onAButton = false;
                 mouseIsReleased = false;
+                console.log("In the puzzle draw function 5");
             };
         };
         myp5 = new p5(Sketch);
@@ -1118,6 +1132,7 @@ const Puzzle = () => {
         }   
         }, [])
     const setUp = () => {
+        //console.log(checkCookiesEnabled());
         var imageInput = document.getElementById("toPuzzle");
         if (imageInput && imageInput.value) {
             handleImageUpload();
