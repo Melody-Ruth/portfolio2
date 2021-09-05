@@ -16,6 +16,7 @@ import greyMapImg from "../graphics/currently_using/map_greyedout_low_res.png";
 import settingsImg from "../graphics/currently_using/settings_transparent2.png";
 import settingsHoverImg from "../graphics/currently_using/settings_opaque2.png";
 import testPuzzle from "../../puzzle/graphics/bottom_out.png";
+import {checkCookiesEnabled} from '../../scripts.js';
 
 class CaveFloodCanvas extends React.Component {
     constructor(props) {
@@ -48,6 +49,8 @@ class CaveFloodCanvas extends React.Component {
       var height = p.height;
       var HAND = p.HAND;
       var ARROW = p.ARROW;
+
+      var okayedCookies;
 
       //Images (have to declare outside so scope will be global
       var crystal, testing, smiley, crystalGroup, crystalGroupWater, crystalWater,help,mapCover,menu,mapImage,greyMap;
@@ -2073,8 +2076,14 @@ class CaveFloodCanvas extends React.Component {
             //alert("Please accept the use of cookies to use this feature.");
             //ranGen.on = !ranGen.on;
           //} else {
-            randomGen = !randomGen;
+            okayedCookies = checkCookiesEnabled();
+            if (typeof okayedCookies == 'undefined' || okayedCookies != "true") {
+              alert("Please accept the use of cookies to use this feature.");
+              ranGen.on = !ranGen.on;
+            } else {
+              randomGen = !randomGen;
               storeItem("randomGen",randomGen);
+            }
           //}
           }
           
