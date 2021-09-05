@@ -1,12 +1,10 @@
 import '../App.css';
-import './CookieInfo.css';
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import { Typography } from '@material-ui/core';
 
 const CookieInfo = () => {
-
     return (
-        <div id="headingDiv">
+        <div class="headingDiv">
             <div>
                 <Typography variant="h4"><b>Cookie Use</b></Typography>
             </div>

@@ -33,10 +33,11 @@ const Footer = ({}) => {
         <div id="bottomNav">
             <div className="bottomNavCol">
                 <Button color="inherit" className="footerButton" component={Link} to={'/portfolio2/'}>Portfolio</Button>
-                <Button color="inherit" className="footerButton" component={Link} to={'/portfolio2/about'}>About</Button>
+                <Button color="inherit" className="footerButton" component={Link} to={'/portfolio2/about'}>About&nbsp;&nbsp;</Button>
+                <Button color="inherit" className="footerButton" component={Link} to={'/portfolio2/credits'}>Credits</Button>
             </div>
             <div className="bottomNavCol">
-                <Button color="inherit" className="footerButton" component={Link} to={'/portfolio2/contact'}>Contact</Button>
+                <Button color="inherit" className="footerButton" component={Link} to={'/portfolio2/contact'}>Contact&nbsp;&nbsp;</Button>
                 <Button color="inherit" className="footerButton" component={Link} to={'/portfolio2/cookies'}>Cookies</Button>
             </div>
         </div>

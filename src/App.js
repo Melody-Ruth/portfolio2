@@ -19,6 +19,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import CookieFooter from './components/CookieFooter';
 import Contact from './components/Contact';
 import CookieInfo from './components/CookieInfo';
+import Credits from './components/Credits';
 
 /*export const CookieContext = React.createContext({
   okayedCookies: "false",
@@ -41,6 +42,7 @@ function App() {
             <Route path="/portfolio2/about" exact component={About} />
             <Route path="/portfolio2/contact" exact component={Contact} />
             <Route path="/portfolio2/cookies" exact component={CookieInfo} />
+            <Route path="/portfolio2/credits" exact component={Credits} />
             <Route path="/portfolio2/Art-Studio" exact component={ArtStudio} />
             <Route path="/portfolio2/Gingerbread" exact component={Gingerbread} />
             <Route path="/portfolio2/Archery" exact component={Archery} />
