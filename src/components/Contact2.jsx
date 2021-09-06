@@ -3,6 +3,7 @@ import './Contact.css';
 import React, { useState } from 'react';
 import { Button, Card, TextField, Typography } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
     const theme = useTheme();
@@ -55,7 +56,16 @@ const Contact = () => {
         }
         setFormData({...formData, nameHelperText: nameHelper, emailHelperText: emailHelper, messageHelperText: messageHelper, nameError: nameHelper != "", emailError: emailHelper != "", messageError: messageHelper != ""});
         if (nameHelper == "" && emailHelper == "" && messageHelper == "") {
-            setFormSubmitted(true);
+            try {
+                emailjs.send('service_gzumprg', 'template_wetx9rr', {name: formData.name, email: formData.email, message: formData.message}, 'user_mFNNKTABCiFo9zIExTYKT').then((result) => {
+                    console.log('SUCCESS!', result.status, result.text);
+                    setFormSubmitted(true);
+                }, (error) => {
+                    console.log('FAILED...', error);
+                });
+            } catch (error) {
+                console.log({error});
+            }
         }
     }
 
@@ -76,7 +86,7 @@ const Contact = () => {
                 }
             </Card>
             <div id="info">
-                <Typography variant="p">I'd love to hear from you! Fill out this form, message me on <a href="https://www.linkedin.com/in/melodyruth/" target="_blank">Linkedin</a>, or email me at maruth@ucsd.edu</Typography>
+                <Typography variant="p">I'd love to hear from you! Fill out this form or message me on <a href="https://www.linkedin.com/in/melodyruth/" target="_blank">Linkedin</a>.</Typography>
             </div>
         </div>
     )
