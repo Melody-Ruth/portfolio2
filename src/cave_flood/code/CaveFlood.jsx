@@ -8,12 +8,19 @@ import BasicFacts from '../../components/BasicFacts';
 import Instructions from '../../components/Instructions';
 
 export default class CaveFlood extends Component {
+    componentDidMount() {
+        window.addEventListener("keydown", function(e) {
+            if (e.code == 'ArrowDown') {
+                e.preventDefault();
+            }
+        });
+    }
   render() {
     return (
         <div className="myContainer">
             <div className="leftCol600">
                 <CaveFloodCanvas className="colItem"/>
-                <BasicFacts name='Cave Flood' start='07/31/2019' end = '12/13/2019' description="     Cave Flood is a game in which the player explores a network of caves in search of crystals (which increase the player's score). The caves are very dark, but a small circle of light around the player is illuminated. The cave system is gradually flooding, and the player's light will go out when underwater. The goal is to make it out of the caves in the shortest time possible with the largest score possible. The player's only guide to the confusing cave system is a map which can only be accessed a few times and which fills in as the player explores the caves. The player can choose to either explore the main, pre-designed level or a randomly generated level.
+                <BasicFacts name='Cave Flood' start='07/31/2019' end = '9/5/2021' description="     Cave Flood is a game in which the player explores a network of caves in search of crystals (which increase the player's score). The caves are very dark, but a small circle of light around the player is illuminated. The cave system is gradually flooding, and the player's light will go out when underwater. The goal is to make it out of the caves in the shortest time possible with the largest score possible. The player's only guide to the confusing cave system is a map which can only be accessed a few times and which fills in as the player explores the caves. The player can choose to either explore the main, pre-designed level or a randomly generated level.
 
 I coded the game in p5.js. The biggest challenges of the project were implemented physics and collision detection for the player's movement and dealing with image manipulation. For the first challenge, I wanted the player's ball avatar to be able to accelerate, collide, and roll through the caves, which are a mix of rectangular and circular shapes. For the second challenge, I wanted the objects in the cave to change color when underwater with a clear &quot;water line&quot; if only partially submerged. As an additional challenge, I wanted some of the crystal images to be rotated, without rotating the water line. I ended up using the image manipulation libraries of p5.js to edit the transparency of each row of pixels as the water level rose, as well as writing my own rotation function to create rotated versions of my crystal images (rather than rotating them as I drew them). "/>
             </div>
@@ -23,6 +30,9 @@ I coded the game in p5.js. The biggest challenges of the project were implemente
                     <Typography variant="h5" className="rightColHeader">
                     Changelog:
                     </Typography>
+                    <ChangeLogEntry release="1.3.2 9/5/2021" description='Down arrow key no longer scrolls the page'/>
+                    <ChangeLogEntry release="1.3.1 9/5/2021" description='Cookies re-enabled'/>
+                    <ChangeLogEntry release="1.3.0 03/27/2021" description='Added to new version of portfolio website. Working in normal mode, but no cookie or randomly generated level functionality'/>
                     <ChangeLogEntry release="1.2.0 12/13/2019" description='Settings page. Randomly generated map is now an option.'/>
                     <ChangeLogEntry release="1.1.1 11/20/2019" description='Map limited to three uses. Map bug fixing.'/>
                     <ChangeLogEntry release="1.1.0 11/11/2019" description='Unlimited use map. (shows a scaled version of the cave system, with only parts the player has been in revealed)'/>

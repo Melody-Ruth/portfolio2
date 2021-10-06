@@ -7,14 +7,18 @@ import BasicFacts from '../components/BasicFacts';
 import Instructions from '../components/Instructions';
 
 export default class Beanstalk extends Component {
-  handleKey(e) {
-    console.log("hi");
-  }
+  componentDidMount() {
+    window.addEventListener("keydown", function(e) {
+        if (e.code == 'Space' || e.code == 'ArrowDown' || e.code == 'ArrowUp') {
+            e.preventDefault();
+        }
+    });
+}
   render() {
     return (
         <div className="myContainer">
             <div className="leftCol800">
-                <BeanstalkCanvas className="colItem" onKeyDown={this.handleKey.bind(this)}/>
+                <BeanstalkCanvas className="colItem"/>
                 <BasicFacts name='Jack and the Beanstalk' start='07/03/20' end = '08/18/20' description="This is a 3D game prototype, building off of what I learned from making the Star Tours simulation. The biggest challenge for this project was rendering the objects.
 I calculate which faces of each object to show, what the light level will be on each face based on the position of the &quot;sun,&quot; and what order to draw the objects.
 I used the painter's algorithm for the latter.
